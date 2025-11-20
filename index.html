@@ -66,10 +66,11 @@
         /* ---------------------------------------------------- */
 
         :root {
-            --device-width: 375px;
-            --topbar-height: 94px; 
-            --bottombar-height: 83px; 
-            --start-button-size: 160px; 
+            --device-width: 375px; 
+            /* px -> vw 변환 */
+            --topbar-height: 25.07vw; /* 94px */
+            --bottombar-height: 22.13vw; /* 83px */
+            --start-button-size: 42.67vw; /* 160px */ 
             --font-family-main: 'SUIT', 'HGGGothicssi', -apple-system, sans-serif;
             --main-text-color: #161317;
             --sub-text-color: #535353;
@@ -80,29 +81,31 @@
         }
 
         body {
-            width: var(--device-width);
-            height: 813px;
-            margin: 0 auto;
+            width: 100vw; 
+            margin: 0;
             padding: 0;
-            background-color: #000;
-            overflow: hidden;
+            /* 🚨 배경색 흰색으로 통일 */
+            background-color: #FDFDFD; 
+            overflow: hidden; 
             font-family: var(--font-family-main); 
             box-sizing: border-box;
+            min-height: 100vh;
         }
 
         .screen-container {
             position: relative;
             width: 100%; height: 100%; 
-            background-image: url('Topbar.jpg'); 
             background-size: cover; background-position: center; background-repeat: no-repeat;
-            background-color: #FDFDFD; 
+            background-color: #FDFDFD; /* 배경색 유지 */
+            min-height: 100vh;
         }
         
         .main-content {
             position: absolute;
             top: var(--topbar-height); 
             left: 0; width: 100%; 
-            height: calc(100% - var(--topbar-height) - var(--bottombar-height)); 
+            height: calc(100% - var(--topbar-height)); 
+            min-height: calc(100vh - var(--topbar-height) - var(--bottombar-height));
             background-color: transparent; 
             box-sizing: border-box;
         }
@@ -110,58 +113,54 @@
         /* ------------------------- 텍스트 영역 ------------------------- */
         .header-text {
             position: absolute;
-            width: calc(100% - 86px); left: 50%; transform: translateX(-50%);
-            top: 35px; 
+            width: calc(100% - 22.93vw); left: 50%; transform: translateX(-50%);
+            top: 9.33vw; 
             text-align: center;
             z-index: 5;
         }
 
         .main-title { 
             font-family: 'HGGGothicssi', sans-serif; 
-            font-size: 28px; 
+            font-size: 7.47vw; 
             font-weight: 800; 
-            /* 자간 -5% 적용 */
             letter-spacing: -0.05em; 
-            /* 🚨 서브 타이틀 5px 상향 조정을 위해 margin-bottom 감소 (15px -> 10px) */
-            margin-bottom: 10px; 
+            margin-bottom: 2.67vw; 
             color: var(--main-text-color); 
         }
         .sub-text { 
-            font-size: 12px; 
+            font-size: 3.20vw; 
             font-weight: 300; 
-            line-height: 17px; 
+            line-height: 4.53vw; 
             color: var(--main-text-color); 
         }
 
-        /* ------------------------- 중앙 점선 및 START 버튼 ------------------------- */
+        /* ------------------------- 중앙 점선 및 START 버튼 (이미지) ------------------------- */
 
         .start-button {
             position: absolute;
             width: var(--start-button-size); 
             height: var(--start-button-size);
-            top: 250px; 
-            left: 50%; transform: translateX(-50%);
+            top: 66.67vw; 
+            left: 50%; 
+            transform: translateX(-50%); 
             display: flex; justify-content: center; align-items: center;
             z-index: 10;
         }
         
-        .start-button img { width: 100%; height: 100%; object-fit: contain; position: absolute; top: 0; left: 0; z-index: 1; }
-        .start-button span { 
-            position: relative; 
-            z-index: 2; 
-            color: #FDFDFD; 
-            font-size: 14px; 
-            font-weight: 800; 
+        .start-button img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain; 
         }
 
         /* 가로 점선 */
         .dashed-line-container.horizontal {
             position: absolute;
             width: 100%; height: 1px; z-index: 1;
-            top: 330px; 
+            top: 88.00vw; 
             transform: translateY(-50%); 
             background-image: linear-gradient(to right, var(--horizontal-line-color) 33%, transparent 33%);
-            background-size: 6px 100%; 
+            background-size: 1.6vw 100%; 
             background-repeat: repeat-x;
         }
         
@@ -169,20 +168,20 @@
         .dashed-line-container.vertical {
             position: absolute;
             left: 50%; transform: translateX(-50%);
-            top: 138px; 
-            height: 357px; 
+            top: 36.80vw; 
+            height: 95.20vw; 
             width: 1px;
             z-index: 1;
             background-image: linear-gradient(to bottom, var(--vertical-line-color) 33%, transparent 33%);
-            background-size: 100% 6px; 
+            background-size: 100% 1.6vw; 
             background-repeat: repeat-y;
         }
         
         /* ------------------------- 하단 정보 박스 ------------------------- */
         .info-box-container {
             position: absolute;
-            width: 336px;
-            top: 510px; 
+            width: 89.60vw;
+            top: 136.00vw; 
             left: 50%; 
             transform: translateX(-50%); 
             z-index: 5; 
@@ -190,39 +189,40 @@
 
         .info-box {
             width: 100%;
-            padding: 8px 20px; 
+            padding: 2.13vw 5.33vw; 
             border: 0.5px solid var(--main-text-color);
             box-sizing: border-box;
             display: flex; flex-direction: column; align-items: center; 
-            gap: 4px; 
+            gap: 1.07vw; 
         }
 
         .question-count { 
-            font-size: 14px; 
+            font-size: 3.73vw; 
             font-weight: 700; 
-            line-height: 17.25px; 
+            line-height: 4.60vw; 
             color: var(--main-text-color); 
         }
         .options-text { 
-            font-size: 10px; 
+            font-size: 2.67vw; 
             font-weight: 300; 
-            line-height: 17.25px; 
+            line-height: 4.60vw; 
             color: var(--main-text-color); 
         }
 
         /* ------------------------- 안내 문구 ------------------------- */
         .guidance-text {
             position: absolute;
-            width: calc(100% - 40px * 2); left: 50%; transform: translateX(-50%);
-            top: 580px; 
+            width: calc(100% - 10.67vw * 2); left: 50%; transform: translateX(-50%);
+            top: 154.67vw; 
             text-align: center;
             z-index: 5;
+            padding-bottom: var(--bottombar-height);
         }
         
         .guidance-text div { 
-            font-size: 9px; 
+            font-size: 2.40vw; 
             font-weight: 200; 
-            line-height: 13px; 
+            line-height: 3.47vw; 
             color: var(--sub-text-color); 
             letter-spacing: -0.02em; 
         }
@@ -245,8 +245,7 @@
             </div>
 
             <div class="start-button">
-                <img src="Vector.png" alt="START 버튼 마름모 모양"> 
-                <span>START</span>
+                <img src="Image/스타트버튼.svg" alt="START 버튼">
             </div>
 
             <div class="info-box-container">
