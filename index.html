@@ -14,19 +14,22 @@
         /* -------------------------- HGGGothicssi 폰트 정의 -------------------------- */
         @font-face {
             font-family: 'HGGGothicssi';
-            src: url('HGGGothicssi_99g.ttf') format('truetype'); 
+            /* 🚨 경로 유지 */
+            src: url('Font/HGGGothicssi_99g.ttf') format('truetype'); 
             font-weight: 900; 
             font-style: normal;
         }
         @font-face {
             font-family: 'HGGGothicssi';
-            src: url('HGGGothicssi_80g.ttf') format('truetype'); 
+            /* 🚨 경로 유지 */
+            src: url('Font/HGGGothicssi_80g.ttf') format('truetype'); 
             font-weight: 800; /* 메인 타이틀에 사용 */
             font-style: normal;
         }
         @font-face {
             font-family: 'HGGGothicssi';
-            src: url('HGGGothicssi_40g.ttf') format('truetype'); 
+            /* 🚨 경로 유지 */
+            src: url('Font/HGGGothicssi_40g.ttf') format('truetype'); 
             font-weight: 400;
             font-style: normal;
         }
@@ -34,31 +37,36 @@
         /* -------------------------- SUIT 폰트 정의 (메인 바디/박스) -------------------------- */
         @font-face {
             font-family: 'SUIT';
-            src: url('SUIT-ExtraLight.ttf') format('truetype'); 
+            /* 🚨 경로 유지 */
+            src: url('Font/SUIT-ExtraLight.ttf') format('truetype'); 
             font-weight: 200; 
             font-style: normal;
         }
         @font-face {
             font-family: 'SUIT';
-            src: url('SUIT-Light.ttf') format('truetype'); 
+            /* 🚨 경로 유지 */
+            src: url('Font/SUIT-Light.ttf') format('truetype'); 
             font-weight: 300;
             font-style: normal;
         }
         @font-face {
             font-family: 'SUIT';
-            src: url('SUIT-Regular.ttf') format('truetype'); 
+            /* 🚨 경로 유지 */
+            src: url('Font/SUIT-Regular.ttf') format('truetype'); 
             font-weight: 400;
             font-style: normal;
         }
         @font-face {
             font-family: 'SUIT';
-            src: url('SUIT-Bold.ttf') format('truetype'); 
+            /* 🚨 경로 유지 */
+            src: url('Font/SUIT-Bold.ttf') format('truetype'); 
             font-weight: 700;
             font-style: normal;
         }
         @font-face {
             font-family: 'SUIT';
-            src: url('SUIT-ExtraBold.ttf') format('truetype'); 
+            /* 🚨 경로 유지 */
+            src: url('Font/SUIT-ExtraBold.ttf') format('truetype'); 
             font-weight: 800;
             font-style: normal;
         }
@@ -67,7 +75,6 @@
 
         :root {
             --device-width: 375px; 
-            /* px -> vw 변환 */
             --topbar-height: 25.07vw; /* 94px */
             --bottombar-height: 22.13vw; /* 83px */
             --start-button-size: 42.67vw; /* 160px */ 
@@ -78,13 +85,14 @@
             /* 점선 색상 */
             --vertical-line-color: #666; 
             --horizontal-line-color: #888; 
+            
+            /* 🚨 겹침 방지를 위해 --vertical-offset 제거 */
         }
 
         body {
             width: 100vw; 
             margin: 0;
             padding: 0;
-            /* 🚨 배경색 흰색으로 통일 */
             background-color: #FDFDFD; 
             overflow: hidden; 
             font-family: var(--font-family-main); 
@@ -96,16 +104,17 @@
             position: relative;
             width: 100%; height: 100%; 
             background-size: cover; background-position: center; background-repeat: no-repeat;
-            background-color: #FDFDFD; /* 배경색 유지 */
+            background-color: #FDFDFD; 
             min-height: 100vh;
         }
         
         .main-content {
             position: absolute;
-            top: var(--topbar-height); 
+            /* 🚨 최상단으로 이동 */
+            top: 0; 
             left: 0; width: 100%; 
-            height: calc(100% - var(--topbar-height)); 
-            min-height: calc(100vh - var(--topbar-height) - var(--bottombar-height));
+            height: 100%; 
+            min-height: 100vh; 
             background-color: transparent; 
             box-sizing: border-box;
         }
@@ -114,6 +123,7 @@
         .header-text {
             position: absolute;
             width: calc(100% - 22.93vw); left: 50%; transform: translateX(-50%);
+            /* 🚨 원래 위치(9.33vw) 복원 */
             top: 9.33vw; 
             text-align: center;
             z-index: 5;
@@ -140,6 +150,7 @@
             position: absolute;
             width: var(--start-button-size); 
             height: var(--start-button-size);
+            /* 🚨 원래 위치(66.67vw) 복원 */
             top: 66.67vw; 
             left: 50%; 
             transform: translateX(-50%); 
@@ -157,6 +168,7 @@
         .dashed-line-container.horizontal {
             position: absolute;
             width: 100%; height: 1px; z-index: 1;
+            /* 🚨 원래 위치(88.00vw) 복원 */
             top: 88.00vw; 
             transform: translateY(-50%); 
             background-image: linear-gradient(to right, var(--horizontal-line-color) 33%, transparent 33%);
@@ -168,6 +180,7 @@
         .dashed-line-container.vertical {
             position: absolute;
             left: 50%; transform: translateX(-50%);
+            /* 🚨 원래 위치(36.80vw) 복원 */
             top: 36.80vw; 
             height: 95.20vw; 
             width: 1px;
@@ -181,6 +194,7 @@
         .info-box-container {
             position: absolute;
             width: 89.60vw;
+            /* 🚨 원래 위치(136.00vw) 복원 */
             top: 136.00vw; 
             left: 50%; 
             transform: translateX(-50%); 
@@ -213,6 +227,7 @@
         .guidance-text {
             position: absolute;
             width: calc(100% - 10.67vw * 2); left: 50%; transform: translateX(-50%);
+            /* 🚨 원래 위치(154.67vw) 복원 */
             top: 154.67vw; 
             text-align: center;
             z-index: 5;
