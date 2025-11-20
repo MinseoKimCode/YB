@@ -3,59 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>심리 테스트 - 설문 페이지 (피드백 반영)</title>
+    <title>심리 테스트 - 설문 페이지 (SVG 버튼 적용)</title>
     <style>
         
-        /*  SUIT 폰트 정의 */
+        /* SUIT 폰트 정의 (경로 유지) */
         @font-face {
             font-family: 'SUIT';
-            src: url('SUIT-Light.ttf') format('truetype');
+            src: url('Font/SUIT-Light.ttf') format('truetype');
             font-weight: 300; 
             font-style: normal;
         }
         @font-face {
             font-family: 'SUIT';
-            src: url('SUIT-Regular.ttf') format('truetype');
+            src: url('Font/SUIT-Regular.ttf') format('truetype');
             font-weight: 400; 
             font-style: normal;
         }
         @font-face {
             font-family: 'SUIT';
-            src: url('SUIT-Medium.ttf') format('truetype'); 
+            src: url('Font/SUIT-Medium.ttf') format('truetype'); 
             font-weight: 500;
             font-style: normal;
         }
         @font-face {
             font-family: 'SUIT';
-            src: url('SUIT-Bold.ttf') format('truetype');
+            src: url('Font/SUIT-Bold.ttf') format('truetype');
             font-weight: 700;
             font-style: normal;
         }
         @font-face {
             font-family: 'SUIT';
-            src: url('SUIT-ExtraBold.ttf') format('truetype');
+            src: url('Font/SUIT-ExtraBold.ttf') format('truetype');
             font-weight: 800; 
             font-style: normal;
         }
 
 
         :root {
-            --device-width: 375px;
             --main-text-color: #161317;
             --sub-text-color: #535353;
             --line-color: #ced4da;
-            --topbar-height: 102px; 
-            --bottombar-height: 80px; 
+            --topbar-height-vw: 27.2vw; 
+            --bottombar-height-vw: 21.33vw; 
+            --circle-size: 16vw; /* 60px */ 
             --font-suit: 'SUIT', -apple-system, 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-            --circle-size: 60px; 
+            --selected-color: #007bff; 
         }
 
         body {
-            width: 100%;
+            width: 100vw; 
             min-height: 100vh;
             margin: 0;
             padding: 0;
-            background-color: #000;
+            background-color: #FDFDFD; 
             overflow-x: hidden; 
             font-family: var(--font-suit);
             box-sizing: border-box;
@@ -64,96 +64,83 @@
         }
 
         .screen-container {
-            width: var(--device-width);
+            width: 100%;
+            max-width: 375px; 
             min-height: 100vh;
             position: relative;
             background-color: #FDFDFD;
         }
-        
-        .top-bar-background, .bottom-navbar {
-            position: fixed; 
-            left: 50%;
-            transform: translateX(-50%); 
-            width: var(--device-width); 
-            z-index: 20;
-            box-sizing: border-box;
-            background-image: url('Topbar.jpg'); 
-            background-size: cover;
-            background-repeat: no-repeat;
-        }
-        
-        .top-bar-background { top: 0; height: var(--topbar-height); background-position: center top; }
-        .bottom-navbar { bottom: 0; height: var(--bottombar-height); background-position: center bottom; }
-
 
         .main-content {
-            position: absolute; 
-            top: var(--topbar-height); 
-            left: 0;
+            /* 336px 너비를 위해 패딩 조정: 375 - 336 = 39. 39/2 = 19.5px. 19.5px / 3.75 = 5.2vw */
             width: 100%;
-            height: calc(100vh - var(--topbar-height) - var(--bottombar-height)); 
-            padding: 0 30px; 
+            padding: 0 5.2vw; /* 19.5px */
             box-sizing: border-box;
             overflow-y: auto; 
             -webkit-overflow-scrolling: touch; 
-            z-index: 10;
         }
-        .main-content::-webkit-scrollbar { display: none; }
-        .main-content { -ms-overflow-style: none; scrollbar-width: none; }
         
         .scroll-content-wrapper { 
             width: 100%; 
-            padding-top: 20px; 
-            padding-bottom: 20px; 
+            padding-top: 13.6vw; 
+            padding-bottom: 5.33vw; 
             position: relative; 
         }
         
-        /* ------------------------- 설문 요소 스타일 ------------------------- */
+        .main-content::-webkit-scrollbar { display: none; }
+        .main-content { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /*  Q1. 질문 번호: 18px, 800, 위로 5px 이동 */
+        /* ------------------------- 설문 요소 스타일 (VW로 변환) ------------------------- */
+        
         .question-number { 
             font-family: var(--font-suit); 
-            font-size: 18px; 
+            font-size: 4.8vw; 
             font-weight: 800; 
             color: #9A9A9A; 
-            margin-top: -5px; /*  5px 위로 이동 */
-            margin-bottom: 10px; 
+            margin-top: -1.33vw; 
+            margin-bottom: 2.67vw; 
         }
         
-        /* 질문 내용 텍스트: 15px, Bold (700), 자간 -0.3px */
         .survey-question { 
             font-family: var(--font-suit); 
-            font-size: 15px; 
-            font-weight: 700; 
-            letter-spacing: -0.3px; 
+            font-size: 4vw; /* 15px */
+            font-weight: 700; /* Bold */
+            letter-spacing: -0.07vw; /* -0.3px */
             color: var(--main-text-color); 
             line-height: 1.4; 
-            margin-bottom: 10px; 
+            margin-bottom: 2.67vw; 
             width: 100%; 
         }
-
-        /*  요청하신 .this 클래스 스타일 (인라인으로 변경 및 최적화) */
-        .this {
+        
+        /* Q12, Q27 힌트 텍스트 스타일 (SUIT Regular 10, 자간 -0.3%) */
+        .question-hint {
             font-family: var(--font-suit); 
-            font-size: 10px; 
             font-weight: 400; /* Regular */
-            letter-spacing: -0.3px; 
-            color: var(--sub-text-color); 
-            line-height: 1.4; 
-            display: inline; /* 인라인으로 변경 */
-            margin-left: 5px; /* 질문 내용과의 간격 */
-            margin-bottom: 5px;
-            white-space: nowrap; /* 줄바꿈 방지 (선택 사항) */
-            /* 이전 블록 요소 스타일 제거됨 */
+            font-size: 2.67vw; /* 10px */
+            letter-spacing: -0.003em; /* -0.3% */
+            color: var(--sub-text-color);
+            display: block; 
+            margin-top: 0.5vw;
+            line-height: 1.4;
+        }
+
+        /* .survey-question-block의 width: 100%는 .main-content의 5.2vw 패딩 덕분에 336px이 됨 */
+        .survey-question-block { width: 100%; margin-bottom: 5.33vw; padding: 5.33vw; border: 0.5px solid var(--line-color); border-radius: 2.13vw; background-color: #FFFFFF; box-sizing: border-box; box-shadow: 0 0.267vw 0.8vw rgba(0,0,0,0.05); }
+        .options-area-wrapper { position: relative; height: var(--circle-size); width: 100%; display: flex; justify-content: space-between; padding: 0; box-sizing: border-box; margin-bottom: 4vw; }
+        
+        .options-item { 
+            position: relative; 
+            width: var(--circle-size); 
+            height: var(--circle-size); 
+            cursor: pointer; 
         }
         
-        .survey-question-block { width: 100%; margin-bottom: 20px; padding: 20px; border: 0.5px solid var(--line-color); border-radius: 8px; background-color: #FFFFFF; box-sizing: border-box; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .options-area-wrapper { position: relative; height: var(--circle-size); width: 100%; display: flex; justify-content: space-between; padding: 0 0px; box-sizing: border-box; margin-bottom: 15px; }
-        .options-item { position: relative; width: var(--circle-size); height: var(--circle-size); cursor: pointer; }
-        .options-image-button { width: 100%; height: 100%; display: block; object-fit: contain; }
-        .options-item-number {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            font-family: var(--font-suit); font-size: 13px; font-weight: 500; color: #9A9A9A; line-height: 1; z-index: 3; 
+        .options-item img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;
+            z-index: 1; 
         }
         
         .options-description { 
@@ -162,11 +149,12 @@
             justify-content: space-between; 
             padding: 0; 
             box-sizing: border-box; 
-            margin-top: 5px; 
+            margin-top: 1.33vw; 
         }
+        
         .options-description span {
             font-family: var(--font-suit); 
-            font-size: 10px; 
+            font-size: 2.67vw; 
             font-weight: 300; 
             color: var(--sub-text-color);
             width: var(--circle-size); 
@@ -174,26 +162,35 @@
             padding: 0;
         }
 
-        .submit-button-container { width: 100%; display: flex; justify-content: center; margin-top: 30px; padding-bottom: 20px; }
+        .submit-button-container { width: 100%; display: flex; justify-content: center; margin-top: 8vw; padding-bottom: 5.33vw; }
+        
         .submit-button { 
-            width: 90%; height: 50px; background-color: var(--main-text-color); border: none; border-radius: 8px;
-            font-family: var(--font-suit); font-size: 16px; font-weight: 800; color: #FFFFFF; cursor: pointer; text-align: center; 
+            width: 90%; 
+            height: 13.33vw; 
+            background-color: var(--main-text-color); 
+            border: none; 
+            border-radius: 2.13vw; 
+            font-family: var(--font-suit); 
+            font-size: 4.27vw; 
+            font-weight: 800; 
+            color: #FFFFFF; 
+            cursor: pointer; 
+            text-align: center; 
         }
         
-        .top-quiz-header { width: 100%; display: flex; align-items: center; position: relative; padding-top: 10px; padding-bottom: 30px; }
+        .top-quiz-header { width: 100%; display: flex; align-items: center; position: relative; padding-top: 2.67vw; padding-bottom: 8vw; }
         
-        /* 뒤로가기 아이콘: 24px, 300 (얇게) */
         .nav-icon { 
             position: absolute; left: 0; z-index: 5; 
             font-family: var(--font-suit); 
-            font-size: 24px; 
+            font-size: 6.4vw; 
             font-weight: 300; 
             color: var(--main-text-color); line-height: 1; cursor: pointer; 
         }
         
         .page-indicator { 
             flex-grow: 1; text-align: center; 
-            font-family: var(--font-suit); font-size: 14px; font-weight: 400; 
+            font-family: var(--font-suit); font-size: 3.73vw; font-weight: 400; 
             color: var(--main-text-color); line-height: 1; 
         }
 
@@ -201,40 +198,31 @@
 </head>
 <body>
     <div class="screen-container">
-        
-        <div class="top-bar-background"></div>
 
         <div class="main-content">
             <div class="scroll-content-wrapper">
                 
                 <div class="top-quiz-header">
                     <div class="nav-icon">&lt;</div>
-                    <div class="page-indicator">4 / 4</div>
+                    <div class="page-indicator">4 / 4</div> 
                 </div>
                 
                 <div class="survey-content">
                     
-                    <div class="survey-question-block">
-                        <div class="question-number">Q25.</div>
-                        <div class="survey-question">스마트폰/인터넷 사용 중 집중력이 떨어져
-일을 제대로 마치지 못한 적이 있나요?</div>
+                    <div class="survey-question-block" data-question-id="Q25"> <div class="question-number">Q25.</div> <div class="survey-question">최근 한 달간, 스마트폰/인터넷 사용 때문에 집안일, 업무, 학업 등을 소홀히 한 적이 있나요?</div>
                         
                         <div class="options-area-wrapper">
-                            <div class="options-item">
-                                <img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button">
-                                <span class="options-item-number">0</span>
+                            <div class="options-item" data-value="0">
+                                <img src="Image/기본버튼0.svg" alt="옵션 0 버튼">
                             </div>
-                            <div class="options-item">
-                                <img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button">
-                                <span class="options-item-number">1</span>
+                            <div class="options-item" data-value="1">
+                                <img src="Image/기본버튼1.svg" alt="옵션 1 버튼">
                             </div>
-                            <div class="options-item">
-                                <img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button">
-                                <span class="options-item-number">2</span>
+                            <div class="options-item" data-value="2">
+                                <img src="Image/기본버튼2.svg" alt="옵션 2 버튼">
                             </div>
-                            <div class="options-item">
-                                <img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button">
-                                <span class="options-item-number">3</span>
+                            <div class="options-item" data-value="3">
+                                <img src="Image/기본버튼3.svg" alt="옵션 3 버튼">
                             </div>
                         </div>
                         
@@ -244,14 +232,14 @@
                         </div>
                     </div>
                     
-                    <div class="survey-question-block">
+                    <div class="survey-question-block" data-question-id="Q26">
                         <div class="question-number">Q26.</div>
-                        <div class="survey-question">최근 한 달 동안, 예상치 못한 짜증이 나는 일 때문에 일을 잘 처리하지 못한 적이 얼마나 자주 있나요?</div>
+                        <div class="survey-question">최근 한 달 동안, 예상치 못한 짜증이 나는 일 때문에 일을 잘 처리하지 못한 적이 얼마나 자주 있나요?</div>
                         <div class="options-area-wrapper">
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">0</span></div>
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">1</span></div>
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">2</span></div>
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">3</span></div>
+                            <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
+                            <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
+                            <div class="options-item" data-value="2"><img src="Image/기본버튼2.svg" alt="옵션 2 버튼"></div>
+                            <div class="options-item" data-value="3"><img src="Image/기본버튼3.svg" alt="옵션 3 버튼"></div>
                         </div>
                         <div class="options-description">
                             <span>전혀 아니다</span>
@@ -259,14 +247,14 @@
                         </div>
                     </div>
                     
-                    <div class="survey-question-block">
+                    <div class="survey-question-block" data-question-id="Q27">
                         <div class="question-number">Q27.</div>
-                        <div class="survey-question">최근 한 달 동안, 예상치 못한 짜증이 나는 일 때문에 일을 잘 처리하지 못한 적이 얼마나 자주 있나요? <span class="this">(0점: 15분, 1점: 30분, 2점: 60분, 3점: 60분 이상)</span></div>
+                        <div class="survey-question">최근 한 달간, 잠자리에 누운 후 잠들기까지 평균적으로 몇 분이 걸립니까?  <span class="question-hint">(0점: 15분, 1점: 30분, 2점: 60분, 3점: 60분 이상)</span></div>
                         <div class="options-area-wrapper">
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">0</span></div>
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">1</span></div>
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">2</span></div>
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">3</span></div>
+                            <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
+                            <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
+                            <div class="options-item" data-value="2"><img src="Image/기본버튼2.svg" alt="옵션 2 버튼"></div>
+                            <div class="options-item" data-value="3"><img src="Image/기본버튼3.svg" alt="옵션 3 버튼"></div>
                         </div>
                         <div class="options-description">
                             <span>전혀 아니다</span>
@@ -274,15 +262,14 @@
                         </div>
                     </div>
 
-                    <div class="survey-question-block">
+                    <div class="survey-question-block" data-question-id="Q28">
                         <div class="question-number">Q28.</div>
-                        <div class="survey-question">숙취나 긴장된 상태를 풀기 위해 아침 일찍
-술을 마신 적이 있습니까?</div>
+                        <div class="survey-question">숙취나 긴장된 상태를 풀기 위해 아침 일찍 술을 마신 적이 있습니까?</div>
                         <div class="options-area-wrapper">
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">0</span></div>
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">1</span></div>
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">2</span></div>
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">3</span></div>
+                            <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
+                            <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
+                            <div class="options-item" data-value="2"><img src="Image/기본버튼2.svg" alt="옵션 2 버튼"></div>
+                            <div class="options-item" data-value="3"><img src="Image/기본버튼3.svg" alt="옵션 3 버튼"></div>
                         </div>
                         <div class="options-description">
                             <span>전혀 아니다</span>
@@ -290,15 +277,14 @@
                         </div>
                     </div>
                     
-                    <div class="survey-question-block">
+                    <div class="survey-question-block" data-question-id="Q29">
                         <div class="question-number">Q29.</div>
-                        <div class="survey-question">의도했던 시간보다 훨씬 오랫동안 스마트폰을
-사용하는 경우가 있나요?</div>
+                        <div class="survey-question">의도했던 시간보다 훨씬 오랫동안 스마트폰을 사용하는 경우가 있나요?</div>
                         <div class="options-area-wrapper">
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">0</span></div>
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">1</span></div>
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">2</span></div>
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">3</span></div>
+                            <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
+                            <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
+                            <div class="options-item" data-value="2"><img src="Image/기본버튼2.svg" alt="옵션 2 버튼"></div>
+                            <div class="options-item" data-value="3"><img src="Image/기본버튼3.svg" alt="옵션 3 버튼"></div>
                         </div>
                         <div class="options-description">
                             <span>전혀 아니다</span>
@@ -306,15 +292,14 @@
                         </div>
                     </div>
                     
-                    <div class="survey-question-block">
+                    <div class="survey-question-block" data-question-id="Q30">
                         <div class="question-number">Q30.</div>
-                        <div class="survey-question">일상생활에서 생기는 짜증이나 화를 잘 다스리지
-못한다고 생각하십니까?</div>
+                        <div class="survey-question">일상생활에서 생기는 짜증이나 화를 잘 다스리지 못한다고 생각하십니까?</div>
                         <div class="options-area-wrapper">
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">0</span></div>
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">1</span></div>
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">2</span></div>
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">3</span></div>
+                            <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
+                            <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
+                            <div class="options-item" data-value="2"><img src="Image/기본버튼2.svg" alt="옵션 2 버튼"></div>
+                            <div class="options-item" data-value="3"><img src="Image/기본버튼3.svg" alt="옵션 3 버튼"></div>
                         </div>
                         <div class="options-description">
                             <span>전혀 아니다</span>
@@ -322,31 +307,29 @@
                         </div>
                     </div>
                     
-                    <div class="survey-question-block">
+                    <div class="survey-question-block" data-question-id="Q31">
                         <div class="question-number">Q31.</div>
-                        <div class="survey-question">최근 한 달간, 아침에 일어났을 때 상쾌함을 느끼는
-빈도는 얼마나 되나요?</div>
+                        <div class="survey-question">최근 한 달간, 아침에 일어났을 때 개운하지 않다고 느끼는 경우가 많나요? </div>
                         <div class="options-area-wrapper">
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">0</span></div>
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">1</span></div>
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">2</span></div>
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">3</span></div>
+                            <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
+                            <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
+                            <div class="options-item" data-value="2"><img src="Image/기본버튼2.svg" alt="옵션 2 버튼"></div>
+                            <div class="options-item" data-value="3"><img src="Image/기본버튼3.svg" alt="옵션 3 버튼"></div>
                         </div>
                         <div class="options-description">
                             <span>전혀 아니다</span>
                             <span>매우 그렇다</span>
                         </div>
                     </div>
-                    
-                    <div class="survey-question-block">
+
+                    <div class="survey-question-block" data-question-id="Q32">
                         <div class="question-number">Q32.</div>
-                        <div class="survey-question">술로 인한 문제(기억 상실, 주변과의 갈등 등)가
-반복되었음에도 계속 음주를 한 적이 있습니까?</div>
+                        <div class="survey-question">술로 인한 문제(기억 상실, 주변과의 갈등 등)가 반복되었음에도 계속 음주를 한 적이 있습니까?</div>
                         <div class="options-area-wrapper">
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">0</span></div>
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">1</span></div>
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">2</span></div>
-                            <div class="options-item"><img src="Vector (1).png" alt="옵션 선택 버튼" class="options-image-button"><span class="options-item-number">3</span></div>
+                            <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
+                            <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
+                            <div class="options-item" data-value="2"><img src="Image/기본버튼2.svg" alt="옵션 2 버튼"></div>
+                            <div class="options-item" data-value="3"><img src="Image/기본버튼3.svg" alt="옵션 3 버튼"></div>
                         </div>
                         <div class="options-description">
                             <span>전혀 아니다</span>
@@ -363,8 +346,192 @@
             </div>
         </div>
         
-        <div class="bottom-navbar"></div>
-        
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 🚨🚨🚨 다중 페이지 관리를 위한 변수 🚨🚨🚨
+            const currentPageId = 'page4'; // 🚨 'page4'로 수정됨 (마지막 페이지)
+            const nextPageUrl = 'test_Result.html'; // 🚨 'test_Result.html'로 수정됨 (결과 페이지)
+            const totalPages = 4;
+            // 🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
+
+            // 질문 ID에 따른 선택 버튼 색상 매핑 (Q1-Q32 전체 매핑 포함)
+            const colorMap = {
+                // Page 1 (Q1-Q8)
+                'Q1': '노란', 'Q5': '노란',
+                'Q2': '보라', 'Q7': '보라', 
+                'Q3': '핑크', 'Q6': '핑크', 
+                'Q4': '초록', 'Q8': '초록',
+                // Page 2 (Q9-Q16)
+                'Q9': '노란', 'Q13': '노란',
+                'Q10': '보라', 'Q15': '보라',
+                'Q11': '핑크', 'Q14': '핑크',
+                'Q12': '초록', 'Q16': '초록',
+                // Page 3 (Q17-Q24) 
+                'Q17': '노란', 'Q21': '노란',
+                'Q19': '보라', 'Q23': '보라', 
+                'Q18': '핑크', 'Q22': '핑크', 
+                'Q20': '초록', 'Q24': '초록',
+                // Page 4 (Q25-Q32) 🚨 새로 추가됨
+                'Q25': '노란', 'Q29': '노란', // 스마트폰/인터넷
+                'Q27': '보라', 'Q31': '보라', // 수면
+                'Q26': '핑크', 'Q30': '핑크', // 정서/스트레스
+                'Q28': '초록', 'Q32': '초록', // 알코올
+            };
+
+            const options = document.querySelectorAll('.options-item');
+            const pageIndicator = document.querySelector('.page-indicator');
+            
+            // UI의 페이지 번호 업데이트 (4 / 4)
+            pageIndicator.textContent = `${currentPageId.replace('page', '')} / ${totalPages}`;
+
+            // localStorage에서 전체 답변을 로드하거나, 없으면 빈 객체로 초기화
+            const quizAnswers = JSON.parse(localStorage.getItem('quizAnswers')) || {};
+            // 현재 페이지의 답변만 가져옵니다.
+            let answers = quizAnswers[currentPageId] || {}; 
+            
+            // =========================================================================
+            // 1. 함수: 전체 누적 점수 계산 및 로깅 (모든 페이지의 답변을 합산)
+            // =========================================================================
+            function calculateTotalScores() {
+                // 색상별 점수 변수 초기화
+                let Yellow = 0;
+                let Purple = 0;
+                let Pink = 0;
+                let Green = 0;
+                
+                // localStorage에 저장된 모든 페이지의 답변을 순회하며 합산
+                for (const pageId in quizAnswers) {
+                    const pageAnswers = quizAnswers[pageId];
+                    
+                    for (const qId in pageAnswers) {
+                        // 현재 질문 ID에 맞는 색상 정의가 colorMap에 있는지 확인
+                        if(colorMap[qId]) {
+                            const score = parseInt(pageAnswers[qId], 10);
+                            const color = colorMap[qId];
+
+                            if (color === '노란') Yellow += score;
+                            else if (color === '보라') Purple += score;
+                            else if (color === '핑크') Pink += score;
+                            else if (color === '초록') Green += score;
+                        }
+                    }
+                }
+
+                // 점수 부여 확인을 위한 콘솔 출력
+                console.log('--- Total Cumulative Scores ---');
+                console.log('Yellow Total:', Yellow);
+                console.log('Purple Total:', Purple);
+                console.log('Pink Total:', Pink);
+                console.log('Green Total:', Green);
+                console.log('-------------------------------');
+                
+                return { Yellow, Purple, Pink, Green };
+            }
+
+            // =========================================================================
+            // 2. 함수: UI 초기화 (이전에 선택한 답변을 버튼에 표시)
+            // =========================================================================
+            function initializeUI() {
+                // 이전에 저장된 answers 객체를 기반으로 버튼 상태를 복원
+                for (const qId in answers) {
+                    const value = answers[qId];
+                    const questionBlock = document.querySelector(`.survey-question-block[data-question-id="${qId}"]`);
+                    
+                    if (questionBlock) {
+                        const selectedItem = questionBlock.querySelector(`.options-item[data-value="${value}"]`);
+                        if (selectedItem) {
+                            const color = colorMap[qId];
+                            const selectedImg = selectedItem.querySelector('img');
+                            
+                            // 선택 상태 적용
+                            selectedImg.src = `Image/${color}버튼${value}.svg`;
+                            selectedItem.classList.add('selected');
+                        }
+                    }
+                }
+                // 초기화 후 누적 점수 한번 계산 및 로깅
+                calculateTotalScores(); 
+            }
+
+            // =========================================================================
+            // 3. 이벤트 핸들러: 옵션 클릭 시 상태 변경 및 저장
+            // =========================================================================
+            options.forEach(item => {
+                item.addEventListener('click', (event) => {
+                    const selectedItem = event.currentTarget;
+                    const questionBlock = selectedItem.closest('.survey-question-block');
+                    const questionId = questionBlock.dataset.questionId;
+                    const value = selectedItem.dataset.value; 
+                    
+                    // colorMap에 정의되지 않은 질문 ID는 무시
+                    if (!colorMap[questionId]) return;
+
+                    const color = colorMap[questionId];
+                    const selectedImg = selectedItem.querySelector('img');
+                    const itemValue = selectedItem.dataset.value;
+
+                    // 1. 이미 선택된 항목을 다시 클릭했는지 확인 (토글)
+                    if (selectedItem.classList.contains('selected')) {
+                        // 이미 선택된 상태: 선택 해제 (Deselect)
+                        selectedImg.src = `Image/기본버튼${itemValue}.svg`;
+                        selectedItem.classList.remove('selected');
+                        delete answers[questionId]; // 현재 페이지의 답변에서 제거
+                        
+                    } else {
+                        // 선택되지 않은 상태: 선택 (Select)
+
+                        // 2. 같은 질문 내의 다른 옵션 초기화 (기본 버튼으로)
+                        const siblings = questionBlock.querySelectorAll('.options-item');
+                        siblings.forEach(sibling => {
+                            const img = sibling.querySelector('img');
+                            const siblingValue = sibling.dataset.value;
+                            
+                            img.src = `Image/기본버튼${siblingValue}.svg`;
+                            sibling.classList.remove('selected');
+                        });
+
+                        // 3. 클릭된 옵션 선택 상태로 변경
+                        selectedImg.src = `Image/${color}버튼${value}.svg`;
+                        selectedItem.classList.add('selected');
+                        
+                        // 4. 답변(점수) 저장
+                        answers[questionId] = value;
+                    }
+                    
+                    // 5. 현재 페이지의 답변을 전체 답변 객체에 업데이트하고 로컬 스토리지에 저장
+                    quizAnswers[currentPageId] = answers;
+                    localStorage.setItem('quizAnswers', JSON.stringify(quizAnswers));
+                    
+                    // 6. 점수 재계산 (콘솔 피드백용)
+                    calculateTotalScores();
+                });
+            });
+            
+            // =========================================================================
+            // 4. 이벤트 핸들러: "다음 단계" 버튼 클릭 시
+            // =========================================================================
+            const submitButton = document.querySelector('.submit-button');
+            submitButton.addEventListener('click', () => {
+                // 현재 페이지의 선택된 답변을 다시 한번 저장
+                quizAnswers[currentPageId] = answers;
+                localStorage.setItem('quizAnswers', JSON.stringify(quizAnswers));
+
+                // 최종 누적 점수를 계산합니다.
+                const finalScores = calculateTotalScores();
+                
+                // 최종 결과 페이지에서 사용할 수 있도록 별도로 저장
+                localStorage.setItem('totalQuizScores', JSON.stringify(finalScores));
+                
+                // 다음 페이지로 이동
+                window.location.href = nextPageUrl;
+            });
+            
+            // 페이지 로드 시 UI 상태 복원
+            initializeUI();
+        });
+    </script>
 </body>
 </html>
