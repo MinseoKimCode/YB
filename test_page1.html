@@ -72,8 +72,9 @@
         }
 
         .main-content {
+            /* 336px 너비를 위해 패딩 조정: 375 - 336 = 39. 39/2 = 19.5px. 19.5px / 3.75 = 5.2vw */
             width: 100%;
-            padding: 0 8vw; 
+            padding: 0 5.2vw; /* 19.5px */
             box-sizing: border-box;
             overflow-y: auto; 
             -webkit-overflow-scrolling: touch; 
@@ -102,15 +103,33 @@
         
         .survey-question { 
             font-family: var(--font-suit); 
-            font-size: 4vw; 
-            font-weight: 700; 
-            letter-spacing: -0.07vw; 
+            font-size: 4vw; /* 15px */
+            font-weight: 700; /* Bold */
+            letter-spacing: -0.07vw; /* -0.3px */
             color: var(--main-text-color); 
             line-height: 1.4; 
             margin-bottom: 2.67vw; 
             width: 100%; 
         }
         
+        /* 🚨 Q8 가이드 텍스트를 위한 스타일 */
+        .question-guide-text { 
+            font-family: var(--font-suit); 
+            font-size: 2.67vw; /* 10px */
+            font-weight: 400; /* Regular */
+            color: var(--sub-text-color); 
+            line-height: 1.4; 
+            margin-top: 0.8vw; /* 질문과의 간격 3px */
+            margin-bottom: 1.87vw; /* 옵션과의 간격 7px */
+        }
+        
+        /* Q8 질문 텍스트 아래 공간을 가이드 텍스트가 차지하도록 조정 */
+        .survey-question-block[data-question-id="Q8"] .survey-question {
+            margin-bottom: 0; 
+        }
+        /* End of Q8 specific styles */
+        
+        /* .survey-question-block의 width: 100%는 .main-content의 5.2vw 패딩 덕분에 336px이 됨 */
         .survey-question-block { width: 100%; margin-bottom: 5.33vw; padding: 5.33vw; border: 0.5px solid var(--line-color); border-radius: 2.13vw; background-color: #FFFFFF; box-sizing: border-box; box-shadow: 0 0.267vw 0.8vw rgba(0,0,0,0.05); }
         .options-area-wrapper { position: relative; height: var(--circle-size); width: 100%; display: flex; justify-content: space-between; padding: 0; box-sizing: border-box; margin-bottom: 4vw; }
         
@@ -222,7 +241,7 @@
                     
                     <div class="survey-question-block" data-question-id="Q2">
                         <div class="question-number">Q2.</div>
-                        <div class="survey-question">물건을 어디에 두었는지 자주 잊어버려 찾는 데 시간을 많이 보낸다.</div>
+                        <div class="survey-question">점심 식사 후 조용히 앉아 있을 때, 나도 모르게<br>졸음이 오는 경우가 있나요?</div>
                         <div class="options-area-wrapper">
                             <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
                             <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
@@ -237,7 +256,7 @@
                     
                     <div class="survey-question-block" data-question-id="Q3">
                         <div class="question-number">Q3.</div>
-                        <div class="survey-question">약속 시간이나 마감일을 자주 놓치거나 잊어버린다.</div>
+                        <div class="survey-question">최근 한 달 동안, 어려운 일이 너무 많아 도저히<br>감당할 수 없다고 느낀 적이 얼마나 자주 있나요?</div>
                         <div class="options-area-wrapper">
                             <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
                             <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
@@ -252,7 +271,7 @@
 
                     <div class="survey-question-block" data-question-id="Q4">
                         <div class="question-number">Q4.</div>
-                        <div class="survey-question">중요한 일에 집중하기 어렵고 주변의 작은 자극에도 쉽게 주의가 흐트러진다.</div>
+                        <div class="survey-question">술을 마신 후 다음 날, 일정 관리나 업무 등 일상적인<br>일을 처리하기 어려움을 겪은 적이 있나요?</div>
                         <div class="options-area-wrapper">
                             <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
                             <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
@@ -267,7 +286,7 @@
                     
                     <div class="survey-question-block" data-question-id="Q5">
                         <div class="question-number">Q5.</div>
-                        <div class="survey-question">방금 읽은 책이나 문서의 내용이 머릿속에 잘 남지 않는다.</div>
+                        <div class="survey-question">오프라인 대화보다 SNS나 온라인 채팅에서 속마음을<br>터놓거나 더 편안함을 느끼나요?</div>
                         <div class="options-area-wrapper">
                             <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
                             <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
@@ -282,7 +301,7 @@
                     
                     <div class="survey-question-block" data-question-id="Q6">
                         <div class="question-number">Q6.</div>
-                        <div class="survey-question">사람들의 이름이나 얼굴을 기억하는 데 어려움을 느낀다.</div>
+                        <div class="survey-question">최근 2주 동안, 기분이 가라앉거나 우울하고 희망이<br>없다고 느낀 적이 얼마나 자주 있나요?</div>
                         <div class="options-area-wrapper">
                             <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
                             <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
@@ -297,7 +316,7 @@
                     
                     <div class="survey-question-block" data-question-id="Q7">
                         <div class="question-number">Q7.</div>
-                        <div class="survey-question">어제 먹은 점심 메뉴가 잘 떠오르지 않는다.</div>
+                        <div class="survey-question">앉아서 책이나 서류 등을 읽을 때, 자신도 모르게<br>졸음이 오는 빈도는 얼마나 되나요?</div>
                         <div class="options-area-wrapper">
                             <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
                             <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
@@ -312,7 +331,8 @@
                     
                     <div class="survey-question-block" data-question-id="Q8">
                         <div class="question-number">Q8.</div>
-                        <div class="survey-question">자주 사용하는 비밀번호를 여러 번 틀리곤 한다.</div>
+                        <div class="survey-question">지난 6개월 동안, 술을 마신 횟수는 얼마입니까?</div>
+                        <div class="question-guide-text">(0점: 월 1회 미만, 1점: 월 2~4회, 2점: 주 2~3회, 3점: 주 4회 이상)</div>
                         <div class="options-area-wrapper">
                             <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
                             <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
