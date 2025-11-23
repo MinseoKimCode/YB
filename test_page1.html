@@ -432,13 +432,10 @@
                 });
             });
 
-            // =========================================================================
-            // 5. 이벤트 핸들러: "다음 단계" 버튼 클릭 시 (History 추적 로직 유지)
-            // =========================================================================
             const submitButton = document.querySelector('.submit-button');
             submitButton.addEventListener('click', () => {
                 
-                // 유효성 검사 로직
+                
                 const totalQuestions = 8;
                 if (Object.keys(answers).length !== totalQuestions) {
                     alert('모든 문항에 체크해야 합니다.');

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>버튼 내비게이션 상세 뷰 (모바일 꽉 채우기)</title>
+    <style>
+        /* 1. HTML/BODY: 중앙 정렬 유지 및 스크롤 허용 */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto; 
+            overflow-x: hidden;
+            background-color: #fff; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center;     
+        }
+
+        /* 2. 고정된 콘텐츠 영역 (375x636) */
+        .fixed-viewport {
+            width: 375px; 
+            height: 636px; 
+            position: relative; /* 내부 absolute 요소의 기준점이 됩니다. */
+            overflow: hidden; 
+            margin-bottom: 20px; 
+        }
+
+        /* 3. 배경 레이어 (z-index: 1) */
+        .bg-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            transform: translateY(30px); 
+        }
+        
+        .bg-layer img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transform: translateY(-30px); 
+        }
+
+        /* 4. 초기 4개 카드 뷰 */
+        #initial-view {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 2;
+            transform: translateY(30px); 
+            
+            display: flex; 
+            align-items: center; 
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap; 
+            padding-left: 20px; 
+            padding-right: 20px; 
+            box-sizing: border-box;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        #initial-view::-webkit-scrollbar { display: none; }
+
+        /* 5. 상세 카드 뷰 컨테이너 */
+        .detail-scroll-container {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 2;
+            transform: translateY(30px); 
+            display: block; 
+        }
+
+        /* 6. 개별 카드 스타일 */
+        .card, .detail-card {
+            width: 337px; 
+            height: 478px; 
+            flex-shrink: 0; 
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); 
+            text-decoration: none;
+            display: block; 
+            cursor: pointer;
+        }
+        
+        .detail-card {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); 
+            display: none; 
+        }
+        
+        .card img, .detail-card img {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* 7. 내비게이션 버튼 (이전, 다음) - fixed-viewport 기준 */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%); 
+            width: 40px;
+            height: 40px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 3; 
+            opacity: 0.8;
+            padding: 0;
+        }
+
+        #prev-btn { left: 5px; }
+        #next-btn { right: 5px; }
+
+        /* 🌟 뒤로가기 버튼 위치 및 스타일 조정 🌟 - fixed-viewport 기준 */
+        #back-btn-ui {
+            position: absolute;
+            top: 35px; 
+            left: 10px;
+            z-index: 3;
+            
+            width: 40px;
+            height: 40px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0.8;
+            padding: 0;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 8. 테스트 다시하기 버튼 스타일 */
+        .retry-button {
+            text-decoration: none; 
+            display: block; 
+            width: 335px;
+            height: 56px;
+            border-radius: 2px;
+            margin-top: 20px; 
+            margin-bottom: 30px; 
+            background-color: #000000; 
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            line-height: 56px; 
+        }
+
+        /* ------------------------------------------------ */
+        /* 9. 전체 화면 모드 스타일 (Detail View 시) - **핵심 변경 부분** */
+        /* ------------------------------------------------ */
+        .fullscreen-mode {
+            /* body 설정 */
+            display: block !important; 
+            justify-content: flex-start !important;
+            align-items: flex-start !important;
+            overflow-y: hidden !important; 
+        }
+
+        .fullscreen-mode .fixed-viewport {
+            /* fixed-viewport: 화면 전체를 덮도록 고정 */
+            width: 100vw !important; 
+            height: 100vh !important; 
+            margin: 0 !important; 
+            top: 0; left: 0; 
+            position: fixed !important; 
+        }
+
+        .fullscreen-mode .bg-layer, 
+        .fullscreen-mode #initial-view, 
+        .fullscreen-mode .retry-button {
+            display: none !important;
+        }
+
+        .fullscreen-mode .detail-scroll-container {
+            /* 상세 카드 컨테이너: 전체를 덮고 flex로 내부 카드 중앙 정렬 */
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            transform: none; 
+            display: flex !important; 
+            justify-content: center; 
+            align-items: center; 
+        }
+
+        .fullscreen-mode .detail-card {
+            /* 상세 카드: 꽉 채우기 */
+            width: 100%; 
+            height: 100%; 
+            position: static; 
+            transform: none; 
+            box-shadow: none; 
+            filter: none;
+        }
+
+        .fullscreen-mode .detail-card img {
+            /* 이미지: 비율을 유지하며 꽉 채우기 */
+            width: 100%;
+            height: 100%;
+            object-fit: contain; 
+            background-color: #000; 
+        }
+        
+        /* 🌟 버튼: 뷰포트에 고정(fixed) 및 최상단 Z-index로 이미지 위에 띄우기 🌟 */
+        .fullscreen-mode #back-btn-ui,
+        .fullscreen-mode .nav-btn {
+            position: fixed !important; /* 뷰포트 기준으로 고정 */
+            z-index: 9999 !important; /* 모든 요소 위에 표시 */
+            
+            /* 위치 초기화 (이전 absolute 값 무시) */
+            top: initial !important; 
+            bottom: initial !important; 
+            transform: initial !important;
+        }
+
+        /* 뷰포트 기준 위치 재설정 */
+        .fullscreen-mode #back-btn-ui {
+            top: 20px !important; 
+            left: 20px !important; 
+        }
+
+        .fullscreen-mode #prev-btn {
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            left: 10px !important;
+        }
+        .fullscreen-mode #next-btn {
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            right: 10px !important;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="fixed-viewport"> 
+        <div class="bg-layer">
+            <img src="Image/Detail_page.svg" alt="배경 이미지">
+        </div>
+
+        <button id="back-btn-ui" onclick="resetToInitialView()" style="display: none;">
+            &lt;
+        </button>
+        
+        <button id="prev-btn" class="nav-btn" style="display: none;" onclick="navigateCards(-1)">&lt;</button>
+        <button id="next-btn" class="nav-btn" style="display: none;" onclick="navigateCards(1)">&gt;</button>
+
+
+        <div id="initial-view">
+            
+            <a href="#" class="card" onclick="showDetail('dementia-detail'); return false;">
+                <img src="Image/결과_카드 가성치매.svg" alt="가성치매">
+            </a>
+            <a href="#" class="card" onclick="showDetail('digital-detail'); return false;">
+                <img src="Image/결과_카드 디지털 과사용.svg" alt="디지털 과사용">
+            </a>
+            <a href="#" class="card" onclick="showDetail('sleep-detail'); return false;">
+                <img src="Image/결과_카드 불규칙 수면.svg" alt="불규칙 수면">
+            </a>
+            <a href="#" class="card" onclick="showDetail('alcohol-detail'); return false;">
+                <img src="Image/결과_카드 알콜성 블랙아웃.svg" alt="알콜성 블랙아웃">
+            </a>
+
+        </div>
+        
+        <div id="detail-views">
+
+            <div id="digital-detail" class="detail-scroll-container" style="display: none;">
+                <a href="#" class="detail-card"><img src="Image/카드 상세_디지털 과사용 1.svg" alt="디지털 상세 1"></a>
+                <a href="#" class="detail-card"><img src="Image/카드 상세_디지털 과사용 2.svg" alt="디지털 상세 2"></a>
+                <a href="#" class="detail-card"><img src="Image/카드 상세_디지털 과사용 3.svg" alt="디지털 상세 3"></a>
+            </div>
+
+            <div id="sleep-detail" class="detail-scroll-container" style="display: none;">
+                <a href="#" class="detail-card"><img src="Image/카드 상세_ 수면1.svg" alt="수면 상세 1"></a>
+                <a href="#" class="detail-card"><img src="Image/카드 상세_ 수면2.svg" alt="수면 상세 2"></a>
+                <a href="#" class="detail-card"><img src="Image/카드 상세_ 수면3.svg" alt="수면 상세 3"></a>
+            </div>
+
+            <div id="dementia-detail" class="detail-scroll-container" style="display: none;">
+                <a href="#" class="detail-card"><img src="Image/카드 상세_가성치매 1.svg" alt="가성치매 상세 1"></a>
+                <a href="#" class="detail-card"><img src="Image/카드 상세_가성치매 2.svg" alt="가성치매 상세 2"></a>
+                <a href="#" class="detail-card"><img src="Image/카드 상세_가성치매 3.svg" alt="가성치매 상세 3"></a>
+            </div>
+
+            <div id="alcohol-detail" class="detail-scroll-container" style="display: none;">
+                <a href="#" class="detail-card"><img src="Image/카드 상세_ 알콜1.svg" alt="알콜 상세 1"></a>
+                <a href="#" class="detail-card"><img src="Image/카드 상세_ 알콜2.svg" alt="알콜 상세 2"></a>
+                <a href="#" class="detail-card"><img src="Image/카드 상세_ 알콜3.svg" alt="알콜 상세 3"></a>
+            </div>
+            
+        </div>
+        
+    </div>
+    
+    <a href="index.html" class="retry-button">테스트 다시하기</a>
+
+
+    <script>
+        let currentDetailIndex = 0;
+        let activeDetailContainer = null;
+        
+        function showDetail(targetId) {
+            // 전체 화면 모드 활성화
+            document.body.classList.add('fullscreen-mode'); 
+            
+            document.querySelectorAll('.detail-scroll-container').forEach(view => {
+                view.style.display = 'none';
+            });
+
+            activeDetailContainer = document.getElementById(targetId);
+            activeDetailContainer.style.display = 'flex'; // flex로 설정하여 중앙 정렬
+
+            const cards = activeDetailContainer.querySelectorAll('.detail-card');
+            cards.forEach(card => card.style.display = 'none'); 
+            
+            currentDetailIndex = 0;
+            cards[0].style.display = 'block'; 
+
+            document.getElementById('back-btn-ui').style.display = 'flex'; // flex로 변경
+            updateNavigationButtons(cards.length);
+        }
+
+        function updateNavigationButtons(totalCards) {
+            // 버튼 표시 시 display: flex로 변경
+            document.getElementById('prev-btn').style.display = (currentDetailIndex > 0) ? 'flex' : 'none'; 
+            document.getElementById('next-btn').style.display = (currentDetailIndex < totalCards - 1) ? 'flex' : 'none';
+        }
+
+        function navigateCards(direction) {
+            if (!activeDetailContainer) return;
+
+            const cards = activeDetailContainer.querySelectorAll('.detail-card');
+            const totalCards = cards.length;
+            
+            cards[currentDetailIndex].style.display = 'none';
+
+            currentDetailIndex += direction;
+            
+            if (currentDetailIndex < 0) currentDetailIndex = 0;
+            if (currentDetailIndex >= totalCards) currentDetailIndex = totalCards - 1;
+
+            cards[currentDetailIndex].style.display = 'block';
+            
+            updateNavigationButtons(totalCards);
+        }
+        
+        function resetToInitialView() {
+            // 전체 화면 모드 비활성화
+            document.body.classList.remove('fullscreen-mode'); 
+            
+            document.getElementById('prev-btn').style.display = 'none';
+            document.getElementById('next-btn').style.display = 'none';
+            document.getElementById('back-btn-ui').style.display = 'none';
+            
+            document.getElementById('initial-view').style.display = 'flex';
+            
+            // bg-layer와 retry-button은 fullscreen-mode 클래스가 제거되면서 자동으로 복원됩니다.
+            
+            if (activeDetailContainer) {
+                activeDetailContainer.style.display = 'none';
+                activeDetailContainer = null;
+            }
+        }
+    </script>
+</body>
+</html>
