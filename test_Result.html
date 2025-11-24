@@ -45,7 +45,8 @@
             /* ⭐ 컨테이너 내에서만 세로 스크롤 허용 */
             overflow-y: auto; 
             -webkit-overflow-scrolling: touch;
-            padding-bottom: 50px; 
+            /* 하단 버튼 높이만큼 padding-bottom 조정 */
+            padding-bottom: 70px; 
         }
         
         #result-container::-webkit-scrollbar { display: none; }
@@ -62,12 +63,12 @@
         }
 
         /* ------------------------------------------- */
-        /* 4. 통계 섹션 (막대 그래프 영역) */
+        /* 4. 통계 섹션 (막대 그래프 영역) - 초기 설정 (Absolute) 유지 */
         /* ------------------------------------------- */
         .stat-section {
             position: absolute;
-            top: 1030px; /* 고객님 설정 값 유지 */
-            left: 73.8%; /* 고객님 설정 값 유지 */
+            top: 927px; /* 고객님 설정 값 유지 */
+            left: 75%; /* 고객님 설정 값 유지 */
             transform: translateX(-50%);
             width: 90%; 
             max-width: 337.5px; 
@@ -81,11 +82,11 @@
         
         /* ⭐⭐ 항목별 간격 조정 CSS - 고객님 설정 값 유지 ⭐⭐ */
         /* 노랑 막대 아래 간격 (그룹 1) */
-        .stat-item.item-1 { margin-bottom: 70px; } 
+        .stat-item.item-1 { margin-bottom: 67px; } 
         /* 보라 막대 아래 간격 (그룹 2) */
-        .stat-item.item-2 { margin-bottom: 70px; } 
+        .stat-item.item-2 { margin-bottom: 67px; } 
         /* 핑크 막대 아래 간격 (그룹 3) */
-        .stat-item.item-3 { margin-bottom: 70px; } 
+        .stat-item.item-3 { margin-bottom: 67px; } 
         /* 초록 막대 아래 간격 (마지막 항목) */
         .stat-item.item-4 { margin-bottom: 0px; }
         /* ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ */
@@ -127,6 +128,7 @@
             width: 40px; 
             text-align: right;
             flex-shrink: 0;
+            margin-bottom: 4px;
         }
         
         /* 비최고점 그래프의 퍼센트 텍스트 색상 (연회색) */
@@ -140,7 +142,7 @@
         .overlay-text-1 { position: absolute; top: 110px; left: 50%; transform: translateX(-50%); font-size: 24px; font-weight: 800; color: #161317; z-index: 5; }
         
         /* ------------------------------------------- */
-        /* 6. 하단 버튼 */
+        /* 6. 하단 버튼 (Fixed Footer) */
         /* ------------------------------------------- */
         .footer {
             width: 100%;
@@ -149,30 +151,58 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            padding: 10px 0;
+            /* ⭐ padding 제거 및 Flexbox 설정 */
+            padding: 0; 
             background-color: #FFFFFF;
             box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
             z-index: 100;
-            text-align: center;
+            display: flex; /* Flexbox 활성화 */
+            justify-content: center; /* 버튼을 중앙으로 정렬 */
+            align-items: center;
+            height: 70px; /* 버튼 높이(56px)와 상하 여백을 고려하여 설정 */
         }
-        
-        .home-button {
-            width: 90%;
-            max-width: 337.5px;
-            height: 50px; 
-            background-color: #161317;
+
+        /* ⭐ 두 버튼을 감싸는 컨테이너 */
+        .button-group {
+            display: flex;
+            gap: 7px; /* 버튼 사이 간격 */
+            width: 100%;
+            max-width: 337.5px; /* 기존 컨테이너 너비 유지 */
+            justify-content: space-between; /* 두 버튼을 양쪽으로 벌립니다. */
+        }
+
+        /* ⭐ 버튼 공통 스타일 (크기 및 모서리 반경 적용) */
+        .action-button {
+            /* 요청하신 크기 적용 */
+            width: 169px; 
+            height: 56px; 
+            
             border: none;
-            border-radius: 8px;
+            /* 요청하신 모서리 반경 적용 */
+            border-radius: 2px; 
+            
             font-size: 16px;
             font-weight: 800;
-            color: #FFFFFF;
             cursor: pointer;
-            line-height: 50px;
+            line-height: 56px; /* 높이에 맞춰 텍스트 중앙 정렬 */
+            text-align: center;
             display: inline-block;
             text-decoration: none;
+            flex-shrink: 0; /* 크기 유지를 위해 축소 방지 */
         }
 
+        /* 1. 다시 테스트 하기 버튼 스타일 (검은색 배경, 흰색 글자) */
+        .test-again-button {
+            background-color: #161317; /* 검은색 배경 */
+            color: #FFFFFF; /* 흰색 글자 */
+        }
 
+        /* 2. 제품 구경하기 버튼 스타일 (검은색 배경, 흰색 글자) */
+        .view-product-button {
+            background-color: #161317; /* 검은색 배경 */
+            color: #FFFFFF; /* 흰색 글자 */
+            border: 1px solid #161317; /* 검은색 테두리 */
+        }
     </style>
 </head>
 <body>
@@ -210,8 +240,12 @@
     </div>
 
     <div class="footer">
-        <a href="index.html" class="home-button">다시 테스트 하기</a>
+        <div class="button-group">
+            <a href="index.html" class="action-button test-again-button">다시 테스트 하기</a>
+            <a href="result.html" class="action-button view-product-button">제품 구경하기</a>
+        </div>
     </div>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
