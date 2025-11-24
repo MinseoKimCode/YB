@@ -361,13 +361,17 @@
             }
 
             const quizAnswers = JSON.parse(localStorage.getItem('quizAnswers')) || {}; 
-            let answers = quizAnswers[currentPageId] || {}; 
+            // ❌ 기존 코드: let answers = quizAnswers[currentPageId] || {}; 
+            let answers = quizAnswers; // ✅ 수정: 데이터 평탄화를 위해 quizAnswers 전체를 참조 (Q1~Q8 답변 유지)
             
             // 질문 ID와 항목 색상 매핑
             const colorMap = {
                 'Q9': '노란', 'Q13': '노란', 'Q10': '보라', 'Q15': '보라',
                 'Q11': '핑크', 'Q14': '핑크', 'Q12': '초록', 'Q16': '초록',
             };
+            
+            // ✅ 추가: 현재 페이지의 질문 ID 목록 정의 (뒤로가기 로직에 사용)
+            const questionIdsOnPage = Object.keys(colorMap);
             
             const options = document.querySelectorAll('.options-item');
             const pageIndicator = document.querySelector('.page-indicator');
@@ -384,6 +388,7 @@
                     const itemValue = item.dataset.value;
                     const selectedImg = item.querySelector('img');
 
+                    // answers 객체는 이제 모든 페이지의 답변을 포함합니다.
                     if (answers[questionId] && answers[questionId].value === itemValue) {
                         const color = colorMap[questionId];
                         selectedImg.src = `Image/${color}버튼${itemValue}.svg`;
@@ -432,21 +437,25 @@
                     }
                     
                     // 선택할 때마다 로컬 스토리지에 저장 (실시간 저장)
-                    quizAnswers[currentPageId] = answers;
-                    localStorage.setItem('quizAnswers', JSON.stringify(quizAnswers));
+                    // ❌ 기존 코드: quizAnswers[currentPageId] = answers;
+                    // ✅ 수정: answers가 곧 quizAnswers를 참조하므로 이 줄만으로 충분합니다.
+                    localStorage.setItem('quizAnswers', JSON.stringify(quizAnswers)); 
                 });
             });
 
             // =========================================================================
-            // 4. 이벤트 핸들러: "뒤로가기" 버튼 클릭 시 (⭐ 뒤로가기 직전 페이지 초기화 로직 추가)
+            // 4. 이벤트 핸들러: "뒤로가기" 버튼 클릭 시 (⭐ 뒤로가기 직전 페이지 초기화 로직 수정)
             // =========================================================================
             const navIcon = document.querySelector('.nav-icon');
             navIcon.addEventListener('click', () => {
                 
-                // [요청 사항 반영] 뒤로 가기 직전 페이지(현재 페이지, Page 2)의 데이터를 초기화
-                let quizAnswers = JSON.parse(localStorage.getItem('quizAnswers') || '{}');
-                delete quizAnswers[currentPageId]; 
-                localStorage.setItem('quizAnswers', JSON.stringify(quizAnswers));
+                // [수정] 뒤로 가기 직전 페이지(현재 페이지, Page 2)의 답변만 초기화
+                // 평탄화된 구조에 맞춰 'page2' 키가 아닌, Q9-Q16 질문 ID만 개별 삭제합니다.
+                let answers = JSON.parse(localStorage.getItem('quizAnswers') || '{}');
+                questionIdsOnPage.forEach(id => {
+                    delete answers[id];
+                });
+                localStorage.setItem('quizAnswers', JSON.stringify(answers));
 
                 // 이전 페이지로 이동 (브라우저 History 기능을 사용)
                 history.back();
@@ -462,14 +471,18 @@
                 
                 // 유효성 검사 로직
                 const totalQuestions = 8;
-                if (Object.keys(answers).length !== totalQuestions) {
+                // answers는 전체 답변(Q1~Q32)을 포함하므로, 현재 페이지의 답변 개수만 확인해야 합니다.
+                // 8개 문항이 모두 답변되었는지 확인 (현재 페이지는 Q9-Q16)
+                const answeredQuestionsOnPage = questionIdsOnPage.filter(id => answers[id]);
+
+                if (answeredQuestionsOnPage.length !== totalQuestions) {
                     alert('모든 문항에 체크해야 합니다.');
                     return; 
                 }
 
                 // 현재 페이지의 선택된 답변을 다시 한번 저장 (유효성 검사 통과 시)
-                quizAnswers[currentPageId] = answers;
-                localStorage.setItem('quizAnswers', JSON.stringify(quizAnswers));
+                // ❌ 기존 코드: quizAnswers[currentPageId] = answers;
+                localStorage.setItem('quizAnswers', JSON.stringify(quizAnswers)); // ✅ 수정: answers가 quizAnswers와 동일 객체이므로 이 줄만으로 충분합니다.
                 
                 // History Index 증가 및 저장 (다음 페이지를 위한 준비)
                 currentHistoryIndex++;

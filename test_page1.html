@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>심리 테스트 - 설문 페이지 (SVG 버튼 적용)</title>
+    <title>심리 테스트 - 설문 페이지 1</title>
     <style>
         
         /* SUIT 폰트 정의 (경로 유지) */
@@ -225,7 +225,7 @@
                             <span>매우 그렇다</span>
                         </div>
                     </div>
-
+                    
                     <div class="survey-question-block" data-question-id="Q3">
                         <div class="question-number">Q3.</div>
                         <div class="survey-question">과거에 비해 흥미나 즐거움을 느끼는 활동의 종류나 횟수가 눈에 띄게 줄어들었나요?</div>
@@ -258,7 +258,7 @@
 
                     <div class="survey-question-block" data-question-id="Q5">
                         <div class="question-number">Q5.</div>
-                        <div class="survey-question">오프라인 대화보다 SNS나 온라인 채팅에서 속마음을 터놓거나 더 편안함을 느끼나요?</div>
+                        <div class="survey-question">원래 목표했던 시간보다 인터넷이나 스마트폰 사용에 많은 시간을 할애하나요?</div>
                         <div class="options-area-wrapper">
                             <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
                             <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
@@ -273,7 +273,7 @@
 
                     <div class="survey-question-block" data-question-id="Q6">
                         <div class="question-number">Q6.</div>
-                        <div class="survey-question">최근 2주 동안, 기분이 가라앉거나 우울하고 희망이 없다고 느낀 적이 얼마나 자주 있나요?</div>
+                        <div class="survey-question">술을 줄이려고 노력했지만, 결과가 원하는 만큼 따라주지 않아 힘들었던 적이 있습니까?</div>
                         <div class="options-area-wrapper">
                             <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
                             <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
@@ -288,7 +288,7 @@
 
                     <div class="survey-question-block" data-question-id="Q7">
                         <div class="question-number">Q7.</div>
-                        <div class="survey-question">알코올 섭취를 줄이거나 조절하려고 시도했지만, 실패한 적이 있습니까?</div>
+                        <div class="survey-question">술을 마시는 것이 일상적인 일에서 더 많은 시간을 소비하게 만든 적이 있습니까?</div>
                         <div class="options-area-wrapper">
                             <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
                             <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
@@ -303,7 +303,7 @@
 
                     <div class="survey-question-block" data-question-id="Q8">
                         <div class="question-number">Q8.</div>
-                        <div class="survey-question">최근 2주 동안, 잠들기가 어렵거나 계속 잠들기 힘들었던 적이 얼마나 자주 있나요?</div>
+                        <div class="survey-question">인터넷이나 스마트폰 사용을 줄여야겠다고 생각하면서도 쉽게 줄이지 못하고 있나요?</div>
                         <div class="options-area-wrapper">
                             <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
                             <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
@@ -319,7 +319,7 @@
                 </div>
                 
                 <div class="submit-button-container">
-                    <button class="submit-button">다음 단계로</button>
+                    <button class="submit-button">다음 단계로</button> 
                 </div>
             </div>
         </div>
@@ -331,14 +331,11 @@
             // =========================================================================
             // 1. 초기 설정 및 History 추적 
             // =========================================================================
-            const currentPageId = 'page1'; 
-            let answers = {};
-            let Yellow = 0;
-            let Purple = 0;
-            let Pink = 0;
-            let Green = 0;
-            const nextPageUrl = 'test_page2.html';
-            
+            let answers = JSON.parse(localStorage.getItem('quizAnswers') || '{}');
+            const nextPageUrl = 'test_page2.html'; // 다음 페이지 URL (임시 설정)
+            const questionIdsOnPage = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8']; // 이 페이지의 모든 질문 ID
+            const totalQuestionsOnPage = questionIdsOnPage.length;
+
             // History Index 추적 설정
             const sessionHistoryKey = 'historyIndex';
             let currentHistoryIndex = parseInt(sessionStorage.getItem(sessionHistoryKey) || '0', 10); 
@@ -351,8 +348,10 @@
             
             // 질문 ID와 항목 색상 매핑
             const colorMap = {
-                'Q1': '노란', 'Q5': '노란', 'Q2': '보라', 'Q7': '보라',
-                'Q3': '핑크', 'Q6': '핑크', 'Q4': '초록', 'Q8': '초록', 
+                'Q1': '노란', 'Q5': '노란', 
+                'Q2': '보라', 'Q7': '보라',
+                'Q3': '핑크', 'Q6': '핑크', 
+                'Q4': '초록', 'Q8': '초록', 
             };
             
             const options = document.querySelectorAll('.options-item');
@@ -378,24 +377,8 @@
                 });
             }
 
-            // ... (3. calculateTotalScores 함수는 변화 없음) ...
-            function calculateTotalScores() {
-                Yellow = 0; Purple = 0; Pink = 0; Green = 0; 
-                
-                for (const [qId, answer] of Object.entries(answers)) {
-                    const score = parseInt(answer.value, 10);
-                    const color = colorMap[qId];
-
-                    if (color === '노란') Yellow += score;
-                    else if (color === '보라') Purple += score;
-                    else if (color === '핑크') Pink += score;
-                    else if (color === '초록') Green += score;
-                }
-            }
-
-
             // =========================================================================
-            // 4. 이벤트 핸들러: 옵션 버튼 클릭 시 (변화 없음)
+            // 3. 이벤트 핸들러: 옵션 버튼 클릭 시 
             // =========================================================================
             options.forEach(item => {
                 item.addEventListener('click', (event) => {
@@ -429,24 +412,20 @@
                         selectedItem.classList.add('selected');
                         answers[questionId] = { value: itemValue, color: color }; 
                     }
+                    localStorage.setItem('quizAnswers', JSON.stringify(answers)); // 변경될 때마다 저장
                 });
             });
 
             const submitButton = document.querySelector('.submit-button');
             submitButton.addEventListener('click', () => {
                 
-                
-                const totalQuestions = 8;
-                if (Object.keys(answers).length !== totalQuestions) {
-                    alert('모든 문항에 체크해야 합니다.');
+                const answeredQuestionsOnPage = questionIdsOnPage.filter(id => answers.hasOwnProperty(id));
+
+                if (answeredQuestionsOnPage.length !== totalQuestionsOnPage) {
+                    alert('모든 문항에 체크해야 다음 단계로 넘어갈 수 있습니다.');
                     return; 
                 }
 
-                // 점수 계산 및 로컬 스토리지 저장 (변화 없음)
-                calculateTotalScores();
-                const finalScores = { Yellow: Yellow, Purple: Purple, Pink: Pink, Green: Green };
-                localStorage.setItem('quizScores', JSON.stringify(finalScores));
-                
                 // History Index 증가 및 저장 (다음 페이지를 위한 준비)
                 currentHistoryIndex++;
                 sessionStorage.setItem(sessionHistoryKey, currentHistoryIndex); 
@@ -457,33 +436,50 @@
             });
             
             // =========================================================================
-            // 6. 페이지 로드 시 상태 유지 (⭐ 초기화 로직 제거)
+            // 4. 페이지 이동 및 BFCache 대응 (⭐ 뒤로가기 시 상태 초기화 로직 적용)
             // =========================================================================
             const navIcon = document.querySelector('.nav-icon');
             // '뒤로가기' 아이콘은 브라우저 뒤로가기 버튼처럼 작동
             navIcon.addEventListener('click', () => {
-                history.back(); 
+                // 이 페이지가 테스트의 시작 페이지이므로, back() 대신 alert 처리
+                alert("첫 페이지입니다. 뒤로 갈 수 없습니다.");
             });
 
             window.addEventListener('pageshow', (event) => {
-                // event.persisted가 true이면 BFCache에서 복원된 것 (뒤로가기 또는 앞으로가기)
+                const savedIndex = history.state?.index; 
+                const lastHistoryIndex = parseInt(sessionStorage.getItem(sessionHistoryKey) || savedIndex, 10);
+                
+                // BFCache 복원 감지 (event.persisted === true)
                 if (event.persisted) {
-                    const savedIndex = history.state.index; 
-                    const lastForwardIndex = parseInt(sessionStorage.getItem(sessionHistoryKey) || savedIndex, 10);
-                    
-                    // BFCache 로드 시 무조건 상태를 유지해야 함 (뒤로가기 또는 앞으로가기 모두)
-                    console.log('BFCache 로드 감지. 현재 페이지 상태 유지.');
-                    initializeUI();
-
-                    // 다음 History 이동을 위해 현재 인덱스를 session storage에 반영
+                    // 뒤로가기 상황: 현재 인덱스가 이전에 저장된 최대 인덱스보다 작을 때 (Page2 -> Page1으로 돌아온 경우)
+                    if (savedIndex < lastHistoryIndex) {
+                        console.log('BFCache 뒤로가기 감지: 현재 페이지 답변 초기화.');
+                        
+                        // 현재 페이지의 답변만 제거 (Q1~Q8)
+                        questionIdsOnPage.forEach(id => {
+                            delete answers[id];
+                        });
+                        localStorage.setItem('quizAnswers', JSON.stringify(answers));
+                        
+                        // 모든 버튼을 기본 버튼으로 강제 초기화
+                        options.forEach(item => {
+                            item.querySelector('img').src = `Image/기본버튼${item.dataset.value}.svg`;
+                            item.classList.remove('selected');
+                        });
+                        
+                    } else {
+                        // 앞으로가기 또는 일반 복원: 저장된 answers 상태를 기준으로 UI를 그림
+                        console.log('BFCache 앞으로가기 또는 일반 복원 감지: 상태 유지.');
+                        initializeUI(); 
+                    }
+                    // History Index를 현재 상태로 다시 설정
                     sessionStorage.setItem(sessionHistoryKey, savedIndex);
                 } else if (history.state && history.state.index !== undefined) {
-                    // 일반적인 페이지 로드 시에도 현재 인덱스를 session storage에 반영
-                    sessionStorage.setItem(sessionHistoryKey, history.state.index);
+                    initializeUI();
+                } else {
+                    initializeUI();
                 }
             });
-            // =========================================================================
-            
             // 페이지 로드 시 UI 상태 복원
             initializeUI();
         });
