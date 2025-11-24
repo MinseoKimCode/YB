@@ -251,10 +251,17 @@
         document.addEventListener('DOMContentLoaded', () => {
             
             // =========================================================================
-            // 1. 점수 계산 로직 (유지)
+            // 1. 점수 계산 로직 (수정됨: sessionStorage에서 데이터 로드)
             // =========================================================================
 
-            const quizAnswers = JSON.parse(localStorage.getItem('quizAnswers') || '{}');
+            // test_page4.html에서 전달받은 최종 데이터를 sessionStorage에서 로드
+            const quizAnswers = JSON.parse(sessionStorage.getItem('finalResultData') || '{}');
+            
+            // 데이터를 성공적으로 불러왔다면, 임시 데이터 삭제(초기화)
+            if (sessionStorage.getItem('finalResultData')) {
+                sessionStorage.removeItem('finalResultData');
+            }
+            
             const maxScoreTotal = 24; 
             
             const questionMap = {
@@ -266,18 +273,24 @@
             
             let yellowScore = 0, purpleScore = 0, pinkScore = 0, greenScore = 0;
             
-            for (const pageId in quizAnswers) {
-                const answers = quizAnswers[pageId];
-                for (const qId in answers) {
-                    const score = parseInt(answers[qId].value, 10);
-                    const category = questionMap[qId];
+            // 데이터가 로드되었을 경우에만 점수 계산을 수행합니다.
+            if (Object.keys(quizAnswers).length > 0) {
+                for (const pageId in quizAnswers) {
+                    const answers = quizAnswers[pageId];
+                    for (const qId in answers) {
+                        const score = parseInt(answers[qId].value, 10);
+                        const category = questionMap[qId];
 
-                    if (category === 'Yellow') yellowScore += score;
-                    else if (category === 'Purple') purpleScore += score;
-                    else if (category === 'Pink') pinkScore += score;
-                    else if (category === 'Green') greenScore += score;
+                        if (category === 'Yellow') yellowScore += score;
+                        else if (category === 'Purple') purpleScore += score;
+                        else if (category === 'Pink') pinkScore += score;
+                        else if (category === 'Green') greenScore += score;
+                    }
                 }
+            } else {
+                console.warn("결과 데이터를 찾을 수 없습니다. (finalResultData is empty)");
             }
+
 
             const calculatePercentage = (score) => Math.round((score / maxScoreTotal) * 100);
 
@@ -292,7 +305,7 @@
 
 
             // =========================================================================
-            // 2. 결과 이미지 설정 함수 (15가지 경우의 수 매핑 로직 유지)
+            // 2. 결과 이미지 설정 함수 (최고점 키 저장 로직 추가)
             // =========================================================================
             function displayResultImage(percentages, maxScore) {
                 const resultImage = document.getElementById('result-main-image');
@@ -311,6 +324,14 @@
                 if (I === maxScoreValue) key += 'I'; 
                 if (G === maxScoreValue) key += 'G';
                 
+                // ⭐⭐⭐ 새로 추가된 부분: 최종 결과 키를 session storage에 저장 ⭐⭐⭐
+                if (key) {
+                    // 'Y', 'P', 'I', 'G' 중 최고점 조합을 result.html에서 사용할 수 있도록 저장
+                    sessionStorage.setItem('finalResultKey', key); 
+                    console.log("Final Result Key saved:", key);
+                }
+                // ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐
+
                 const imageMap = {
                     'Y': '결과1_디지털.svg', 'P': '결과2_수면.svg', 'I': '결과3_가성.svg', 'G': '결과4_알콜.svg', 
                     'YP': '결과5_디지털,수면.svg', 'YI': '결과6_디지털,가성.svg', 'YG': '결과7_디지털,알콜.svg', 
@@ -326,6 +347,7 @@
                     resultImage.src = `Image/${fileName}`;
                     resultImage.alt = `${key} 결과 이미지`; 
                 } else {
+                    // 데이터가 없는 경우, 기본값 또는 에러 페이지로 처리 가능
                     resultImage.src = `Image/${imageMap['Y']}`;
                     resultImage.alt = '기본 디지털 과부하 결과 이미지';
                 }
