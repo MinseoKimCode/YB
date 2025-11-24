@@ -341,13 +341,14 @@
             // 1. 변수 및 상태 관리 (Page 4 전용)
             // =========================================================================
             const currentPageId = 'page4';
-            const nextPageUrl = 'test_Result.html'; // 결과 페이지 URL
+            const nextPageUrl = 'test_Result.html'; // 결과 페이지 URL (이 URL로 이동합니다.)
             const prevPageUrl = 'test_page3.html';
             const totalPages = 4;
             const historyStateKey = 'quizHistory'; 
             const sessionHistoryKey = 'currentHistoryIndex';
 
             // Local Storage에서 전체 답변 상태를 가져오기 (없으면 초기화)
+            // Local Storage를 사용하여 페이지 이동 간에 데이터를 유지합니다.
             let quizAnswers = JSON.parse(localStorage.getItem('quizAnswers')) || {};
             let answers = quizAnswers[currentPageId] || {}; 
 
@@ -436,7 +437,7 @@
                     selectedItem.querySelector('img').src = `Image/${color}버튼${selectedValue}.svg`;
 
 
-                    // 3. 답변 저장 (⭐ 점수 저장 오류 수정 부분: data-value를 answers 객체에 저장)
+                    // 3. 답변 저장 
                     answers[questionId] = {
                         value: selectedValue 
                     };
@@ -468,16 +469,27 @@
 
 
             // =========================================================================
-            // 6. 이벤트 핸들러: 결과 보기 버튼
+            // 6. 이벤트 핸들러: 결과 보기 버튼 (요청하신 대로 수정됨)
             // =========================================================================
             submitButton.addEventListener('click', () => {
-                if (!checkAllAnswered()) return;
+                if (!checkAllAnswered()) {
+                    alert("모든 문항에 응답해주세요."); 
+                    return;
+                }
+                
+                // 1. 결과 데이터를 다음 페이지로 전달 (sessionStorage 사용)
+                // quizAnswers 객체(page1~page4의 모든 응답 포함)를 'finalResultData' 키에 저장합니다.
+                sessionStorage.setItem('finalResultData', JSON.stringify(quizAnswers));
 
-                // History 상태에 현재 페이지 인덱스를 저장 (뒤로가기/앞으로가기 시 사용)
+                // 2. test_page1 ~ 4에 눌러놓은 데이터를 모두 초기화
+                // Local Storage의 모든 응답 데이터를 삭제하여 초기화합니다.
+                localStorage.removeItem('quizAnswers'); 
+
+                // History 상태에 현재 페이지 인덱스를 저장 (기존 로직 유지)
                 let currentHistoryIndex = 4; // page4의 인덱스는 4
-                history.pushState({ index: currentHistoryIndex }, '', nextPageUrl);
+                // history.pushState({ index: currentHistoryIndex }, '', nextPageUrl); // 결과 페이지로 이동하므로 주석 처리하거나 제거 가능
 
-                // 다음 페이지로 이동
+                // 결과 페이지로 이동
                 window.location.href = nextPageUrl;
             });
             
