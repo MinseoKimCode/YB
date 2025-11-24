@@ -305,7 +305,7 @@
 
 
             // =========================================================================
-            // 2. 결과 이미지 설정 함수 (최고점 키 저장 로직 추가)
+            // 2. 결과 이미지 설정 함수 (15가지 경우의 수 매핑 로직 유지)
             // =========================================================================
             function displayResultImage(percentages, maxScore) {
                 const resultImage = document.getElementById('result-main-image');
@@ -324,13 +324,12 @@
                 if (I === maxScoreValue) key += 'I'; 
                 if (G === maxScoreValue) key += 'G';
                 
-                // ⭐⭐⭐ 새로 추가된 부분: 최종 결과 키를 session storage에 저장 ⭐⭐⭐
+                // ⭐ 추가된 핵심 로직: 최종 결과 키를 session storage에 저장합니다. result.html에서 이 값을 사용합니다.
                 if (key) {
-                    // 'Y', 'P', 'I', 'G' 중 최고점 조합을 result.html에서 사용할 수 있도록 저장
                     sessionStorage.setItem('finalResultKey', key); 
                     console.log("Final Result Key saved:", key);
                 }
-                // ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐
+                // ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐
 
                 const imageMap = {
                     'Y': '결과1_디지털.svg', 'P': '결과2_수면.svg', 'I': '결과3_가성.svg', 'G': '결과4_알콜.svg', 

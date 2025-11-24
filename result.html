@@ -58,7 +58,7 @@
             
             display: flex; 
             align-items: center; 
-            overflow-x: auto;
+            overflow-x: auto; /* ⭐ 가로 스크롤 허용 */
             overflow-y: hidden;
             white-space: nowrap; 
             padding-left: 20px; 
@@ -66,6 +66,7 @@
             box-sizing: border-box;
             scrollbar-width: none;
             -ms-overflow-style: none;
+            gap: 7px; /* ⭐ 카드 사이 간격 추가 */
         }
 
         #initial-view::-webkit-scrollbar { display: none; }
@@ -271,20 +272,7 @@
 
         <div id="initial-view">
             
-            <a href="#" class="card" onclick="showDetail('dementia-detail'); return false;">
-                <img src="Image/결과_카드 가성치매.svg" alt="가성치매">
-            </a>
-            <a href="#" class="card" onclick="showDetail('digital-detail'); return false;">
-                <img src="Image/결과_카드 디지털 과사용.svg" alt="디지털 과사용">
-            </a>
-            <a href="#" class="card" onclick="showDetail('sleep-detail'); return false;">
-                <img src="Image/결과_카드 불규칙 수면.svg" alt="불규칙 수면">
-            </a>
-            <a href="#" class="card" onclick="showDetail('alcohol-detail'); return false;">
-                <img src="Image/결과_카드 알콜성 블랙아웃.svg" alt="알콜성 블랙아웃">
-            </a>
-
-        </div>
+            </div>
         
         <div id="detail-views">
 
@@ -323,6 +311,51 @@
         let currentDetailIndex = 0;
         let activeDetailContainer = null;
         
+        // ⭐ 추가된 핵심 로직: 최고점 카테고리 카드 동적 생성 및 삽입
+        document.addEventListener('DOMContentLoaded', () => {
+            const finalKey = sessionStorage.getItem('finalResultKey');
+            const initialView = document.getElementById('initial-view');
+            
+            if (!finalKey || !initialView) {
+                // 키가 없으면 (테스트를 거치지 않은 경우), 모든 카드를 표시하는 기본 로직을 유지하거나 
+                // 빈 화면을 표시할 수 있습니다. 여기서는 키가 없을 때 아무것도 표시하지 않습니다.
+                initialView.innerHTML = '';
+                return;
+            }
+
+            // 카테고리 정보 매핑
+            const cardInfoMap = {
+                // Yellow: 결과_카드 디지털 과사용.svg -> digital-detail
+                'Y': { detailId: 'digital-detail', imgSrc: 'Image/결과_카드 디지털 과사용.svg', alt: '디지털 과사용' },
+                // Purple: 결과_카드 불규칙 수면.svg -> sleep-detail
+                'P': { detailId: 'sleep-detail', imgSrc: 'Image/결과_카드 불규칙 수면.svg', alt: '불규칙 수면' },
+                // Pink: 결과_카드 가성치매.svg -> dementia-detail (HTML ID에 맞춰 'dementia-detail' 사용)
+                'I': { detailId: 'dementia-detail', imgSrc: 'Image/결과_카드 가성치매.svg', alt: '가성치매' },
+                // Green: 결과_카드 알콜성 블랙아웃.svg -> alcohol-detail
+                'G': { detailId: 'alcohol-detail', imgSrc: 'Image/결과_카드 알콜성 블랙아웃.svg', alt: '알콜성 블랙아웃' }
+            };
+
+            // 최고점 카테고리에 해당하는 카드만 동적으로 생성
+            for (const category of finalKey) { // finalKey는 'YP', 'I', 'YG' 등
+                const info = cardInfoMap[category];
+                if (info) {
+                    const cardLink = document.createElement('a');
+                    cardLink.href = '#';
+                    // showDetail 함수를 호출할 때 해당 카드의 상세 뷰 ID를 전달
+                    cardLink.setAttribute('onclick', `showDetail('${info.detailId}'); return false;`); 
+                    cardLink.classList.add('card');
+                    
+                    const cardImg = document.createElement('img');
+                    cardImg.src = info.imgSrc;
+                    cardImg.alt = info.alt;
+                    
+                    cardLink.appendChild(cardImg);
+                    initialView.appendChild(cardLink);
+                }
+            }
+        });
+        // ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐
+
         function showDetail(targetId) {
             // 전체 화면 모드 활성화
             document.body.classList.add('fullscreen-mode'); 
