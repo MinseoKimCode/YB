@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>심리 테스트 - 설문 페이지 1</title>
+    <title>심리 테스트 - 설문 페이지 (SVG 버튼 적용)</title>
     <style>
         
         /* SUIT 폰트 정의 (경로 유지) */
@@ -165,161 +165,171 @@
             cursor: pointer; 
             text-align: center; 
         }
-        
-        .top-quiz-header { width: 100%; display: flex; align-items: center; position: relative; padding-top: 2.67vw; padding-bottom: 8vw; }
-        
-        .nav-icon { 
-            position: absolute; left: 0; z-index: 5; 
-            font-family: var(--font-suit); 
-            font-size: 6.4vw; 
-            font-weight: 300; 
-            color: var(--main-text-color); line-height: 1; cursor: pointer; 
-        }
-        
-        .page-indicator { 
-            flex-grow: 1; text-align: center; 
-            font-family: var(--font-suit); font-size: 3.73vw; font-weight: 400; 
-            color: var(--main-text-color); line-height: 1; 
+
+        .top-quiz-header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 2.67vw;
+            padding-bottom: 8vw;
         }
 
+        .nav-icon {
+            position: absolute;
+            left: 0;
+            z-index: 5;
+            font-family: var(--font-suit);
+            font-size: 6.4vw; /* 24px */
+            font-weight: 300;
+            color: var(--main-text-color);
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .page-indicator {
+            flex-grow: 1;
+            text-align: center;
+            font-family: var(--font-suit);
+            font-size: 3.73vw; /* 14px */
+            font-weight: 400;
+            color: var(--main-text-color);
+            line-height: 1;
+        }
     </style>
 </head>
 <body>
     <div class="screen-container">
         <div class="main-content">
             <div class="scroll-content-wrapper">
-
+                
                 <div class="top-quiz-header">
                     <div class="nav-icon">&lt;</div>
                     <div class="page-indicator">1 / 4</div>
                 </div>
 
-                <div class="survey-content">
+                <div class="survey-question-block" data-question-id="Q1">
+                    <div class="question-number">Q1.</div>
+                    <div class="survey-question">혼자 있는 시간을 즐기며 재충전을 위해 계획을 취소하거나 일정을 미루는 경우가 자주 있나요?</div>
+                    <div class="options-area-wrapper">
+                        <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
+                        <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
+                        <div class="options-item" data-value="2"><img src="Image/기본버튼2.svg" alt="옵션 2 버튼"></div>
+                        <div class="options-item" data-value="3"><img src="Image/기본버튼3.svg" alt="옵션 3 버튼"></div>
+                    </div>
+                    <div class="options-description">
+                        <span>전혀 아니다</span>
+                        <span>매우 그렇다</span>
+                    </div>
+                </div>
 
-                    <div class="survey-question-block" data-question-id="Q1">
-                        <div class="question-number">Q1.</div>
-                        <div class="survey-question">인터넷/스마트폰 사용 시간이 원래 생각했던 것보다 자주 늘어나나요?</div>
-                        <div class="options-area-wrapper">
-                            <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
-                            <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
-                            <div class="options-item" data-value="2"><img src="Image/기본버튼2.svg" alt="옵션 2 버튼"></div>
-                            <div class="options-item" data-value="3"><img src="Image/기본버튼3.svg" alt="옵션 3 버튼"></div>
-                        </div>
-                        <div class="options-description">
-                            <span>전혀 아니다</span>
-                            <span>매우 그렇다</span>
-                        </div>
+                <div class="survey-question-block" data-question-id="Q2">
+                    <div class="question-number">Q2.</div>
+                    <div class="survey-question">평소에 사소한 일에도 걱정하거나 지나치게 생각하여 잠들기 어렵거나 잠을 설친 적이 얼마나 자주 있나요?</div>
+                    <div class="options-area-wrapper">
+                        <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
+                        <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
+                        <div class="options-item" data-value="2"><img src="Image/기본버튼2.svg" alt="옵션 2 버튼"></div>
+                        <div class="options-item" data-value="3"><img src="Image/기본버튼3.svg" alt="옵션 3 버튼"></div>
                     </div>
+                    <div class="options-description">
+                        <span>전혀 아니다</span>
+                        <span>매우 그렇다</span>
+                    </div>
+                </div>
 
-                    <div class="survey-question-block" data-question-id="Q2">
-                        <div class="question-number">Q2.</div>
-                        <div class="survey-question">원래 목표했던 양보다 술을 더 많이, 혹은 더 오랫동안 마신 적이 있습니까?</div>
-                        <div class="options-area-wrapper">
-                            <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
-                            <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
-                            <div class="options-item" data-value="2"><img src="Image/기본버튼2.svg" alt="옵션 2 버튼"></div>
-                            <div class="options-item" data-value="3"><img src="Image/기본버튼3.svg" alt="옵션 3 버튼"></div>
-                        </div>
-                        <div class="options-description">
-                            <span>전혀 아니다</span>
-                            <span>매우 그렇다</span>
-                        </div>
+                <div class="survey-question-block" data-question-id="Q3">
+                    <div class="question-number">Q3.</div>
+                    <div class="survey-question">중요한 결정이나 큰 변화를 앞두고 다른 사람들의 의견을 구하거나, 충분한 정보를 얻기 위해 주변에 문의하나요?</div>
+                    <div class="options-area-wrapper">
+                        <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
+                        <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
+                        <div class="options-item" data-value="2"><img src="Image/기본버튼2.svg" alt="옵션 2 버튼"></div>
+                        <div class="options-item" data-value="3"><img src="Image/기본버튼3.svg" alt="옵션 3 버튼"></div>
                     </div>
-                    
-                    <div class="survey-question-block" data-question-id="Q3">
-                        <div class="question-number">Q3.</div>
-                        <div class="survey-question">과거에 비해 흥미나 즐거움을 느끼는 활동의 종류나 횟수가 눈에 띄게 줄어들었나요?</div>
-                        <div class="options-area-wrapper">
-                            <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
-                            <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
-                            <div class="options-item" data-value="2"><img src="Image/기본버튼2.svg" alt="옵션 2 버튼"></div>
-                            <div class="options-item" data-value="3"><img src="Image/기본버튼3.svg" alt="옵션 3 버튼"></div>
-                        </div>
-                        <div class="options-description">
-                            <span>전혀 아니다</span>
-                            <span>매우 그렇다</span>
-                        </div>
+                    <div class="options-description">
+                        <span>전혀 아니다</span>
+                        <span>매우 그렇다</span>
                     </div>
+                </div>
 
-                    <div class="survey-question-block" data-question-id="Q4">
-                        <div class="question-number">Q4.</div>
-                        <div class="survey-question">스트레스를 받을 때 인터넷이나 스마트폰 사용으로 이를 해소하려고 하는 경향이 있나요?</div>
-                        <div class="options-area-wrapper">
-                            <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
-                            <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
-                            <div class="options-item" data-value="2"><img src="Image/기본버튼2.svg" alt="옵션 2 버튼"></div>
-                            <div class="options-item" data-value="3"><img src="Image/기본버튼3.svg" alt="옵션 3 버튼"></div>
-                        </div>
-                        <div class="options-description">
-                            <span>전혀 아니다</span>
-                            <span>매우 그렇다</span>
-                        </div>
+                <div class="survey-question-block" data-question-id="Q4">
+                    <div class="question-number">Q4.</div>
+                    <div class="survey-question">직접 또는 간접적으로 피해를 주거나 비난하는 상황을 마주했을 때 즉각적으로 대응하거나 화를 표현하는 편인가요?</div>
+                    <div class="options-area-wrapper">
+                        <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
+                        <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
+                        <div class="options-item" data-value="2"><img src="Image/기본버튼2.svg" alt="옵션 2 버튼"></div>
+                        <div class="options-item" data-value="3"><img src="Image/기본버튼3.svg" alt="옵션 3 버튼"></div>
                     </div>
+                    <div class="options-description">
+                        <span>전혀 아니다</span>
+                        <span>매우 그렇다</span>
+                    </div>
+                </div>
 
-                    <div class="survey-question-block" data-question-id="Q5">
-                        <div class="question-number">Q5.</div>
-                        <div class="survey-question">원래 목표했던 시간보다 인터넷이나 스마트폰 사용에 많은 시간을 할애하나요?</div>
-                        <div class="options-area-wrapper">
-                            <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
-                            <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
-                            <div class="options-item" data-value="2"><img src="Image/기본버튼2.svg" alt="옵션 2 버튼"></div>
-                            <div class="options-item" data-value="3"><img src="Image/기본버튼3.svg" alt="옵션 3 버튼"></div>
-                        </div>
-                        <div class="options-description">
-                            <span>전혀 아니다</span>
-                            <span>매우 그렇다</span>
-                        </div>
+                <div class="survey-question-block" data-question-id="Q5">
+                    <div class="question-number">Q5.</div>
+                    <div class="survey-question">오프라인 대화보다 SNS나 온라인 채팅에서 속마음을 터놓거나 더 편안함을 느끼나요?</div>
+                    <div class="options-area-wrapper">
+                        <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
+                        <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
+                        <div class="options-item" data-value="2"><img src="Image/기본버튼2.svg" alt="옵션 2 버튼"></div>
+                        <div class="options-item" data-value="3"><img src="Image/기본버튼3.svg" alt="옵션 3 버튼"></div>
                     </div>
+                    <div class="options-description">
+                        <span>전혀 아니다</span>
+                        <span>매우 그렇다</span>
+                    </div>
+                </div>
 
-                    <div class="survey-question-block" data-question-id="Q6">
-                        <div class="question-number">Q6.</div>
-                        <div class="survey-question">술을 줄이려고 노력했지만, 결과가 원하는 만큼 따라주지 않아 힘들었던 적이 있습니까?</div>
-                        <div class="options-area-wrapper">
-                            <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
-                            <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
-                            <div class="options-item" data-value="2"><img src="Image/기본버튼2.svg" alt="옵션 2 버튼"></div>
-                            <div class="options-item" data-value="3"><img src="Image/기본버튼3.svg" alt="옵션 3 버튼"></div>
-                        </div>
-                        <div class="options-description">
-                            <span>전혀 아니다</span>
-                            <span>매우 그렇다</span>
-                        </div>
+                <div class="survey-question-block" data-question-id="Q6">
+                    <div class="question-number">Q6.</div>
+                    <div class="survey-question">최근 2주 동안, 기분이 가라앉거나 우울하고 희망이 없다고 느낀 적이 얼마나 자주 있나요?</div>
+                    <div class="options-area-wrapper">
+                        <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
+                        <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
+                        <div class="options-item" data-value="2"><img src="Image/기본버튼2.svg" alt="옵션 2 버튼"></div>
+                        <div class="options-item" data-value="3"><img src="Image/기본버튼3.svg" alt="옵션 3 버튼"></div>
                     </div>
+                    <div class="options-description">
+                        <span>전혀 아니다</span>
+                        <span>매우 그렇다</span>
+                    </div>
+                </div>
 
-                    <div class="survey-question-block" data-question-id="Q7">
-                        <div class="question-number">Q7.</div>
-                        <div class="survey-question">술을 마시는 것이 일상적인 일에서 더 많은 시간을 소비하게 만든 적이 있습니까?</div>
-                        <div class="options-area-wrapper">
-                            <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
-                            <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
-                            <div class="options-item" data-value="2"><img src="Image/기본버튼2.svg" alt="옵션 2 버튼"></div>
-                            <div class="options-item" data-value="3"><img src="Image/기본버튼3.svg" alt="옵션 3 버튼"></div>
-                        </div>
-                        <div class="options-description">
-                            <span>전혀 아니다</span>
-                            <span>매우 그렇다</span>
-                        </div>
+                <div class="survey-question-block" data-question-id="Q7">
+                    <div class="question-number">Q7.</div>
+                    <div class="survey-question">새로운 취미를 배우거나 새로운 경험을 하는 데 주저함이 없으며, 새로운 일에 몰두하여 시간을 보내는 경향이 있나요?</div>
+                    <div class="options-area-wrapper">
+                        <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
+                        <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
+                        <div class="options-item" data-value="2"><img src="Image/기본버튼2.svg" alt="옵션 2 버튼"></div>
+                        <div class="options-item" data-value="3"><img src="Image/기본버튼3.svg" alt="옵션 3 버튼"></div>
                     </div>
+                    <div class="options-description">
+                        <span>전혀 아니다</span>
+                        <span>매우 그렇다</span>
+                    </div>
+                </div>
 
-                    <div class="survey-question-block" data-question-id="Q8">
-                        <div class="question-number">Q8.</div>
-                        <div class="survey-question">인터넷이나 스마트폰 사용을 줄여야겠다고 생각하면서도 쉽게 줄이지 못하고 있나요?</div>
-                        <div class="options-area-wrapper">
-                            <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
-                            <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
-                            <div class="options-item" data-value="2"><img src="Image/기본버튼2.svg" alt="옵션 2 버튼"></div>
-                            <div class="options-item" data-value="3"><img src="Image/기본버튼3.svg" alt="옵션 3 버튼"></div>
-                        </div>
-                        <div class="options-description">
-                            <span>전혀 아니다</span>
-                            <span>매우 그렇다</span>
-                        </div>
+                <div class="survey-question-block" data-question-id="Q8">
+                    <div class="question-number">Q8.</div>
+                    <div class="survey-question">다른 사람에게 의존하기보다 혼자 힘으로 문제를 해결하거나 일을 처리하는 것이 더 편하고 효율적이라고 생각하나요?</div>
+                    <div class="options-area-wrapper">
+                        <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
+                        <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
+                        <div class="options-item" data-value="2"><img src="Image/기본버튼2.svg" alt="옵션 2 버튼"></div>
+                        <div class="options-item" data-value="3"><img src="Image/기본버튼3.svg" alt="옵션 3 버튼"></div>
                     </div>
-                    
+                    <div class="options-description">
+                        <span>전혀 아니다</span>
+                        <span>매우 그렇다</span>
+                    </div>
                 </div>
                 
                 <div class="submit-button-container">
-                    <button class="submit-button">다음 단계로</button> 
+                    <button class="submit-button">다음으로</button>
                 </div>
             </div>
         </div>
@@ -327,34 +337,32 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            
             // =========================================================================
-            // 1. 초기 설정 및 History 추적 
+            // 1. 변수 및 상태 관리 (Page 1 전용)
             // =========================================================================
-            let answers = JSON.parse(localStorage.getItem('quizAnswers') || '{}');
-            const nextPageUrl = 'test_page2.html'; // 다음 페이지 URL (임시 설정)
-            const questionIdsOnPage = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8']; // 이 페이지의 모든 질문 ID
-            const totalQuestionsOnPage = questionIdsOnPage.length;
+            const currentPageId = 'page1';
+            const nextPageUrl = 'test_page2.html';
+            const totalPages = 4;
+            const historyStateKey = 'quizHistory'; 
+            const sessionHistoryKey = 'currentHistoryIndex';
 
-            // History Index 추적 설정
-            const sessionHistoryKey = 'historyIndex';
-            let currentHistoryIndex = parseInt(sessionStorage.getItem(sessionHistoryKey) || '0', 10); 
+            // Local Storage에서 전체 답변 상태를 가져오기 (없으면 초기화)
+            let quizAnswers = JSON.parse(localStorage.getItem('quizAnswers')) || {};
+            let answers = quizAnswers[currentPageId] || {}; 
 
-            if (!history.state || history.state.index === undefined) {
-                history.replaceState({ index: currentHistoryIndex }, '', window.location.href);
-            }
-            sessionStorage.setItem(sessionHistoryKey, currentHistoryIndex); 
-
-            
-            // 질문 ID와 항목 색상 매핑
+            // 질문 ID와 항목 색상 매핑 (Q1~Q8)
             const colorMap = {
                 'Q1': '노란', 'Q5': '노란', 
-                'Q2': '보라', 'Q7': '보라',
-                'Q3': '핑크', 'Q6': '핑크', 
+                'Q2': '보라', 'Q6': '보라', 
+                'Q3': '핑크', 'Q7': '핑크', 
                 'Q4': '초록', 'Q8': '초록', 
             };
-            
+
             const options = document.querySelectorAll('.options-item');
+            const submitButton = document.querySelector('.submit-button');
+            const pageIndicator = document.querySelector('.page-indicator');
+            pageIndicator.textContent = `${currentPageId.replace('page', '')} / ${totalPages}`;
+
 
             // =========================================================================
             // 2. 함수: UI 초기화 (버튼 상태 복원/업데이트)
@@ -367,119 +375,136 @@
                     const selectedImg = item.querySelector('img');
 
                     if (answers[questionId] && answers[questionId].value === itemValue) {
+                        // 선택된 상태 복원
                         const color = colorMap[questionId];
                         selectedImg.src = `Image/${color}버튼${itemValue}.svg`;
                         item.classList.add('selected');
                     } else {
+                        // 기본 상태
                         selectedImg.src = `Image/기본버튼${itemValue}.svg`;
                         item.classList.remove('selected');
                     }
                 });
+                checkAllAnswered();
             }
 
             // =========================================================================
-            // 3. 이벤트 핸들러: 옵션 버튼 클릭 시 
+            // 3. 함수: 모든 질문 응답 확인
+            // =========================================================================
+            function checkAllAnswered() {
+                const requiredQuestions = document.querySelectorAll('.survey-question-block');
+                let allAnswered = true;
+                requiredQuestions.forEach(block => {
+                    const questionId = block.dataset.questionId;
+                    if (!answers[questionId] || answers[questionId].value === undefined) {
+                        allAnswered = false;
+                    }
+                });
+
+                if (allAnswered) {
+                    submitButton.style.backgroundColor = 'var(--main-text-color)';
+                    submitButton.disabled = false;
+                } else {
+                    submitButton.style.backgroundColor = '#ced4da';
+                    submitButton.disabled = true;
+                }
+                return allAnswered;
+            }
+
+            // =========================================================================
+            // 4. 이벤트 핸들러: 옵션 버튼 클릭 시 (선택 상태 저장)
             // =========================================================================
             options.forEach(item => {
                 item.addEventListener('click', (event) => {
                     const selectedItem = event.currentTarget;
                     const questionBlock = selectedItem.closest('.survey-question-block');
                     const questionId = questionBlock.dataset.questionId;
-                    const value = selectedItem.dataset.value;
+                    const selectedValue = selectedItem.dataset.value; 
 
-                    if (!colorMap[questionId]) return;
+                    // 1. 기존 선택 해제 및 UI 업데이트
+                    const siblings = questionBlock.querySelectorAll('.options-item');
+                    siblings.forEach(sibling => {
+                        sibling.classList.remove('selected');
+                        const siblingValue = sibling.dataset.value;
+                        sibling.querySelector('img').src = `Image/기본버튼${siblingValue}.svg`;
+                    });
 
+                    // 2. 새 선택 적용 및 UI 업데이트 (점수값에 맞는 색상 이미지 적용)
                     const color = colorMap[questionId];
-                    const selectedImg = selectedItem.querySelector('img');
-                    const itemValue = selectedItem.dataset.value;
+                    selectedItem.classList.add('selected');
+                    selectedItem.querySelector('img').src = `Image/${color}버튼${selectedValue}.svg`;
 
-                    if (selectedItem.classList.contains('selected')) {
-                        selectedImg.src = `Image/기본버튼${itemValue}.svg`;
-                        selectedItem.classList.remove('selected');
-                        delete answers[questionId]; 
-                    } else {
-                        const siblings = questionBlock.querySelectorAll('.options-item');
-                        siblings.forEach(sibling => {
-                            if (sibling !== selectedItem && sibling.classList.contains('selected')) {
-                                const siblingImg = sibling.querySelector('img');
-                                const siblingValue = sibling.dataset.value;
-                                siblingImg.src = `Image/기본버튼${siblingValue}.svg`;
-                                sibling.classList.remove('selected');
-                            }
-                        });
 
-                        selectedImg.src = `Image/${color}버튼${itemValue}.svg`;
-                        selectedItem.classList.add('selected');
-                        answers[questionId] = { value: itemValue, color: color }; 
-                    }
-                    localStorage.setItem('quizAnswers', JSON.stringify(answers)); // 변경될 때마다 저장
+                    // 3. 답변 저장 (⭐ 점수 저장 오류 수정 부분: data-value를 answers 객체에 저장)
+                    answers[questionId] = {
+                        value: selectedValue 
+                    };
+
+                    // 4. Local Storage 업데이트
+                    quizAnswers[currentPageId] = answers;
+                    localStorage.setItem('quizAnswers', JSON.stringify(quizAnswers));
+
+                    // 5. 다음 버튼 상태 확인
+                    checkAllAnswered();
                 });
             });
 
-            const submitButton = document.querySelector('.submit-button');
+
+            // =========================================================================
+            // 5. 이벤트 핸들러: 뒤로가기 버튼
+            // =========================================================================
+            const navIcon = document.querySelector('.nav-icon');
+            navIcon.addEventListener('click', () => {
+                // 이전 페이지로 돌아가기 (index.html이 시작 페이지로 가정)
+                window.location.href = 'index.html'; 
+            });
+
+
+            // =========================================================================
+            // 6. 이벤트 핸들러: 다음 버튼
+            // =========================================================================
             submitButton.addEventListener('click', () => {
-                
-                const answeredQuestionsOnPage = questionIdsOnPage.filter(id => answers.hasOwnProperty(id));
+                if (!checkAllAnswered()) return;
 
-                if (answeredQuestionsOnPage.length !== totalQuestionsOnPage) {
-                    alert('모든 문항에 체크해야 다음 단계로 넘어갈 수 있습니다.');
-                    return; 
-                }
-
-                // History Index 증가 및 저장 (다음 페이지를 위한 준비)
-                currentHistoryIndex++;
-                sessionStorage.setItem(sessionHistoryKey, currentHistoryIndex); 
+                // History 상태에 현재 페이지 인덱스를 저장 (뒤로가기/앞으로가기 시 사용)
+                let currentHistoryIndex = 1; // page1의 인덱스는 1
                 history.pushState({ index: currentHistoryIndex }, '', nextPageUrl);
 
-                // test_page2.html로 페이지 이동
+                // 다음 페이지로 이동
                 window.location.href = nextPageUrl;
             });
             
+            
             // =========================================================================
-            // 4. 페이지 이동 및 BFCache 대응 (⭐ 뒤로가기 시 상태 초기화 로직 적용)
+            // ⭐⭐⭐ BFCache 비활성화 코드 시작 ⭐⭐⭐
             // =========================================================================
-            const navIcon = document.querySelector('.nav-icon');
-            // '뒤로가기' 아이콘은 브라우저 뒤로가기 버튼처럼 작동
-            navIcon.addEventListener('click', () => {
-                // 이 페이지가 테스트의 시작 페이지이므로, back() 대신 alert 처리
-                alert("첫 페이지입니다. 뒤로 갈 수 없습니다.");
+            window.addEventListener('unload', function() {
+                // 이 이벤트 리스너의 존재만으로 BFCache 저장이 방지되어,
+                // 뒤로가기 시 페이지가 항상 새로 로드됩니다.
             });
-
+            // ⭐⭐⭐ BFCache 비활성화 코드 끝 ⭐⭐⭐
+            
+            // =========================================================================
+            // 7. 페이지 로드 시 상태 유지 (뒤로가기/앞으로가기 상태 복원)
+            // =========================================================================
             window.addEventListener('pageshow', (event) => {
-                const savedIndex = history.state?.index; 
-                const lastHistoryIndex = parseInt(sessionStorage.getItem(sessionHistoryKey) || savedIndex, 10);
-                
-                // BFCache 복원 감지 (event.persisted === true)
+                // event.persisted가 true이면 BFCache에서 복원된 것 (이 로직은 이제 거의 실행되지 않음)
                 if (event.persisted) {
-                    // 뒤로가기 상황: 현재 인덱스가 이전에 저장된 최대 인덱스보다 작을 때 (Page2 -> Page1으로 돌아온 경우)
-                    if (savedIndex < lastHistoryIndex) {
-                        console.log('BFCache 뒤로가기 감지: 현재 페이지 답변 초기화.');
-                        
-                        // 현재 페이지의 답변만 제거 (Q1~Q8)
-                        questionIdsOnPage.forEach(id => {
-                            delete answers[id];
-                        });
-                        localStorage.setItem('quizAnswers', JSON.stringify(answers));
-                        
-                        // 모든 버튼을 기본 버튼으로 강제 초기화
-                        options.forEach(item => {
-                            item.querySelector('img').src = `Image/기본버튼${item.dataset.value}.svg`;
-                            item.classList.remove('selected');
-                        });
-                        
-                    } else {
-                        // 앞으로가기 또는 일반 복원: 저장된 answers 상태를 기준으로 UI를 그림
-                        console.log('BFCache 앞으로가기 또는 일반 복원 감지: 상태 유지.');
-                        initializeUI(); 
-                    }
-                    // History Index를 현재 상태로 다시 설정
+                    const savedIndex = history.state.index; 
+                    
+                    // BFCache 로드 시 무조건 상태를 유지해야 함.
+                    console.log('BFCache 로드 감지 (거의 비활성화). 현재 페이지 상태 유지.');
+                    initializeUI();
+
+                    // 다음 History 이동을 위해 현재 인덱스를 session storage에 반영
                     sessionStorage.setItem(sessionHistoryKey, savedIndex);
                 } else if (history.state && history.state.index !== undefined) {
-                    initializeUI();
-                } else {
-                    initializeUI();
+                    // 일반적인 페이지 로드 시에도 현재 인덱스를 session storage에 반영
+                    sessionStorage.setItem(sessionHistoryKey, history.state.index);
                 }
             });
+            // =========================================================================
+            
             // 페이지 로드 시 UI 상태 복원
             initializeUI();
         });
