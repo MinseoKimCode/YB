@@ -109,21 +109,22 @@
         /* 7. 내비게이션 버튼 (이전, 다음) - fixed-viewport 기준 */
         .nav-btn {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%); 
+            /* 💡 수정 1: 일반 뷰에서 버튼 위치를 30% -> 20%로 올려 위로 이동 */
+            top: 20%;
+            transform: translateY(-40%); 
             width: 35px;
             height: 35px;
             background: rgba(255,255,255,0.8);
             color: #000;
-            /* ⭐ 1px 검정색 테두리 추가 */
             border: 1px solid #000; 
             border-radius: 50%;
-            font-size: 20px;
+            /* 수정: 폰트 크기 조정으로 화살표 시각적 중앙 정렬 개선 */
+            font-size: 24px; 
             cursor: pointer;
             z-index: 3; 
             opacity: 1;
             padding: 0;
-            
+            margin-bottom: 100px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -147,7 +148,8 @@
             /* ⭐ 1px 검정색 테두리 추가 */
             border: 1px solid #000; 
             border-radius: 50%;
-            font-size: 20px;
+            /* 수정: 폰트 크기 조정으로 화살표 시각적 중앙 정렬 개선 */
+            font-size: 24px; 
             cursor: pointer;
             opacity: 1;
             padding: 0;
@@ -246,19 +248,20 @@
 
         /* 뷰포트 기준 위치 재설정 */
         .fullscreen-mode #back-btn-ui {
-            top: 20px !important; 
+            top: 8% !important; 
             left: 20px !important; 
         }
 
+        /* 💡 수정 2: 다음/이전 버튼을 화면 세로 중앙(50%)보다 위쪽(40%)에 배치합니다. */
         .fullscreen-mode #prev-btn {
-            top: 50% !important;
+            top: 48.5% !important; /* 50%에서 40%로 변경하여 위로 올림 */
             transform: translateY(-50%) !important;
-            left: 10px !important;
+            left: 20px !important;
         }
         .fullscreen-mode #next-btn {
-            top: 50% !important;
+            top: 48.5% !important; /* 50%에서 40%로 변경하여 위로 올림 */
             transform: translateY(-50%) !important;
-            right: 10px !important;
+            right: 20px !important;
         }
 
     </style>
@@ -362,7 +365,7 @@
                 }
             }
         });
-        // ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐
+
 
         function showDetail(targetId) {
             // 전체 화면 모드 활성화

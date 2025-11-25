@@ -150,14 +150,20 @@
             padding: 0;
         }
 
-        .submit-button-container { width: 100%; display: flex; justify-content: center; margin-top: 8vw; padding-bottom: 5.33vw; }
+        .submit-button-container { 
+            width: 100%; /* 수정: 부모 요소의 전체 너비 사용 */
+            display: flex; 
+            justify-content: center; 
+            margin-top: 8vw; 
+            padding-bottom: 5.33vw; 
+        }
         
         .submit-button { 
-            width: 90%; 
+            width: 100%; /* 수정: 문항 상자와 같은 너비 */
             height: 13.33vw; 
             background-color: var(--main-text-color); 
             border: none; 
-            border-radius: 2.13vw; 
+            border-radius: 0; /* 수정: 둥근 모서리 제거 */
             font-family: var(--font-suit); 
             font-size: 4.27vw; 
             font-weight: 800; 
