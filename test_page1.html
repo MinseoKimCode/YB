@@ -216,7 +216,7 @@
 
                 <div class="survey-question-block" data-question-id="Q1">
                     <div class="question-number">Q1.</div>
-                    <div class="survey-question">혼자 있는 시간을 즐기며 재충전을 위해 계획을 취소하거나 일정을 미루는 경우가 자주 있나요?</div>
+                    <div class="survey-question">인터넷/스마트폰 사용 시간이 원래 생각했던 것보다 자주 늘어나나요?</div>
                     <div class="options-area-wrapper">
                         <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
                         <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
@@ -231,7 +231,7 @@
 
                 <div class="survey-question-block" data-question-id="Q2">
                     <div class="question-number">Q2.</div>
-                    <div class="survey-question">평소에 사소한 일에도 걱정하거나 지나치게 생각하여 잠들기 어렵거나 잠을 설친 적이 얼마나 자주 있나요?</div>
+                    <div class="survey-question">점심 식사 후 조용히 앉아 있을 때, 나도 모르게 졸음이 오는 경우가 있나요?</div>
                     <div class="options-area-wrapper">
                         <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
                         <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
@@ -246,7 +246,8 @@
 
                 <div class="survey-question-block" data-question-id="Q3">
                     <div class="question-number">Q3.</div>
-                    <div class="survey-question">중요한 결정이나 큰 변화를 앞두고 다른 사람들의 의견을 구하거나, 충분한 정보를 얻기 위해 주변에 문의하나요?</div>
+                    <div class="survey-question">최근 한 달 동안, 어려운 일이 너무 많아 도저히 
+감당할 수 없다고 느낀 적이 얼마나 자주 있나요?</div>
                     <div class="options-area-wrapper">
                         <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
                         <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
@@ -261,7 +262,7 @@
 
                 <div class="survey-question-block" data-question-id="Q4">
                     <div class="question-number">Q4.</div>
-                    <div class="survey-question">직접 또는 간접적으로 피해를 주거나 비난하는 상황을 마주했을 때 즉각적으로 대응하거나 화를 표현하는 편인가요?</div>
+                    <div class="survey-question">술을 마신 후 다음 날, 일정 관리나 업무 등 일상적인 일을 처리하기 어려움을 겪은 적이 있나요?</div>
                     <div class="options-area-wrapper">
                         <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
                         <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
@@ -306,7 +307,7 @@
 
                 <div class="survey-question-block" data-question-id="Q7">
                     <div class="question-number">Q7.</div>
-                    <div class="survey-question">새로운 취미를 배우거나 새로운 경험을 하는 데 주저함이 없으며, 새로운 일에 몰두하여 시간을 보내는 경향이 있나요?</div>
+                    <div class="survey-question">앉아서 책이나 서류 등을 읽을 때, 자신도 모르게 졸음이 오는 빈도는 얼마나 되나요?</div>
                     <div class="options-area-wrapper">
                         <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
                         <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
@@ -321,7 +322,8 @@
 
                 <div class="survey-question-block" data-question-id="Q8">
                     <div class="question-number">Q8.</div>
-                    <div class="survey-question">다른 사람에게 의존하기보다 혼자 힘으로 문제를 해결하거나 일을 처리하는 것이 더 편하고 효율적이라고 생각하나요?</div>
+                    <div class="survey-question">지난 6개월 동안, 술을 마신 횟수는 얼마입니까?
+(0점: 월 1회 미만, 1점: 월 2~4회, 2점: 주 2~3회, 3점: 주 4회 이상)</div>
                     <div class="options-area-wrapper">
                         <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
                         <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
@@ -359,8 +361,8 @@
             // 질문 ID와 항목 색상 매핑 (Q1~Q8)
             const colorMap = {
                 'Q1': '노란', 'Q5': '노란', 
-                'Q2': '보라', 'Q6': '보라', 
-                'Q3': '핑크', 'Q7': '핑크', 
+                'Q2': '보라', 'Q6': '핑크', 
+                'Q3': '핑크', 'Q7': '보라', 
                 'Q4': '초록', 'Q8': '초록', 
             };
 
