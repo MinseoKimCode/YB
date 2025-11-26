@@ -111,6 +111,19 @@
             margin-bottom: 2.67vw; 
             width: 100%; 
         }
+
+        /* Q27 힌트 텍스트를 위한 새로운 스타일 */
+        .survey-question small {
+            font-family: var(--font-suit); 
+            font-weight: 400; /* Regular */
+            font-size: 2.5vw; /* 10px */
+            letter-spacing: -0.003em; /* -0.3% */
+            color: var(--sub-text-color);
+            line-height: 1.4;
+            display: inline; /* 줄바꿈을 위해 블록 요소로 처리 */
+            margin-top: 1.33vw; /* 문항과 힌트 사이에 간격 추가 */
+            margin-left: 0; /* 기존 75px 마진 제거 */
+        }
         
         /* .survey-question-block의 width: 100%는 .main-content의 5.2vw 패딩 덕분에 336px이 됨 */
         .survey-question-block { width: 100%; margin-bottom: 5.33vw; padding: 5.33vw; border: 0.5px solid var(--line-color); border-radius: 2px; background-color: #FFFFFF; box-sizing: border-box; box-shadow: 0 0.267vw 0.8vw rgba(0,0,0,0.05); }
@@ -198,17 +211,7 @@
             line-height: 1;
         }
 
-        .question-hint {
-            font-family: var(--font-suit); 
-            font-weight: 400; /* Regular */
-            font-size: 2.5vw; /* 10px */
-            letter-spacing: -0.003em; /* -0.3% */
-            color: var(--sub-text-color);
-            line-height: 1.4;
-            margin-left: 75px;
-            margin-top: -13px;
-            
-        }
+        
     </style>
 </head>
 <body>
@@ -253,20 +256,22 @@
                 </div>
 
                 <div class="survey-question-block" data-question-id="Q27">
-                    <div class="question-number">Q27.</div>
-                    <div class="survey-question">최근 한 달간, 잠자리에 누운 후 잠들기까지 평균적으로 몇 분이 걸립니까? <div class="question-hint">(0점: 15분, 1점: 30분, 2점: 60분, 3점: 60분 이상)</div></div>
-                    
-                    <div class="options-area-wrapper">
-                        <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
-                        <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
-                        <div class="options-item" data-value="2"><img src="Image/기본버튼2.svg" alt="옵션 2 버튼"></div>
-                        <div class="options-item" data-value="3"><img src="Image/기본버튼3.svg" alt="옵션 3 버튼"></div>
-                    </div>
-                    <div class="options-description">
-                        <span>전혀 아니다</span>
-                        <span>매우 그렇다</span>
-                    </div>
-                </div>
+    <div class="question-number">Q27.</div>
+    <div class="survey-question">최근 한 달간, 잠자리에 누운 후 잠들기까지 평균적으로 몇 분이 걸립니까? 
+        <small>(0점: 15분, 1점: 30분, 2점: 60분, 3점: 60분 이상)</small>
+    </div>
+    
+    <div class="options-area-wrapper">
+        <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
+        <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
+        <div class="options-item" data-value="2"><img src="Image/기본버튼2.svg" alt="옵션 2 버튼"></div>
+        <div class="options-item" data-value="3"><img src="Image/기본버튼3.svg" alt="옵션 3 버튼"></div>
+    </div>
+    <div class="options-description">
+        <span>전혀 아니다</span>
+        <span>매우 그렇다</span>
+    </div>
+</div>
 
                 <div class="survey-question-block" data-question-id="Q28">
                     <div class="question-number">Q28.</div>
