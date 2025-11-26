@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>결과 페이지 - 막대 그래프 오버레이</title>
+    <title>결과 페이지 - 막대 그래프 오버레이 (뷰포트 고정)</title>
     <style>
         /* ------------------------------------------- */
         /* 0. 폰트 선언 */
@@ -11,68 +11,74 @@
         @font-face {
             font-family: 'SUIT';
             font-weight: 700; /* Bold weight */
-            /* SUIT-Bold.ttf 파일로 경로 및 포맷 수정 완료 */
             src: url('Font/SUIT-Bold.ttf') format('truetype'); 
             font-display: swap;
         }
 
         /* ------------------------------------------- */
-        /* 1. 기본 설정 및 뷰포트 고정 */
+        /* 1. 기본 설정 및 뷰포트 고정 (수정됨) */
         /* ------------------------------------------- */
         html, body {
             margin: 0;
             padding: 0;
-            height: 100%; 
+            /* ⭐ 뷰포트 높이(vh)를 사용해 정확히 한 화면에 맞춤 */
+            height: 100vh; 
             font-family: sans-serif;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            /* 세로 중앙에 배치 (기존 flex-start 대신 center로 변경) */
+            align-items: center; 
             box-sizing: border-box;
             background-color: #ffffff; 
-            /* ⭐ 가로 스크롤(좌우 움직임)을 완전히 막는 설정 */
+            /* ⭐ 스크롤 완전히 막기 */
             overflow: hidden; 
         }
 
         /* ------------------------------------------- */
-        /* 2. 메인 컨테이너 (모바일 뷰포트 역할) */
+        /* 2. 메인 컨테이너 (모바일 뷰포트 역할) (수정됨) */
         /* ------------------------------------------- */
         #result-container {
             width: 100%;
             max-width: 375px; 
-            height: 100%;
+            /* ⭐ 높이를 뷰포트 높이에 맞춤 */
+            height: 100vh; 
             position: relative; 
             background-color: #ffffff; 
-            /* ⭐ 컨테이너 내에서만 세로 스크롤 허용 */
-            overflow-y: auto; 
+            /* ⭐ 컨테이너 내 스크롤 제거 */
+            overflow-y: hidden; 
             -webkit-overflow-scrolling: touch;
-            /* 하단 버튼 높이만큼 padding-bottom 조정 */
-            padding-bottom: 70px; 
+            padding-bottom: 0px; /* 고정되었으므로 0으로 변경 */
         }
         
+        /* 스크롤바 숨김 설정은 유지 */
         #result-container::-webkit-scrollbar { display: none; }
         #result-container { -ms-overflow-style: none; scrollbar-width: none; }
         
         /* ------------------------------------------- */
-        /* 3. 결과 이미지 및 배경 */
+        /* 3. 결과 이미지 및 배경 (수정됨) */
         /* ------------------------------------------- */
         .result-image {
             width: 100%;
-            height: auto;
+            /* ⭐ 높이를 100%로 설정하여 뷰포트 높이에 맞춤 */
+            height: 100%; 
             display: block;
             margin-top: 0; 
+            /* ⭐ 이미지 비율을 유지하면서 뷰포트 높이에 맞게 축소 */
+            object-fit: contain; 
         }
 
         /* ------------------------------------------- */
-        /* 4. 통계 섹션 (막대 그래프 영역) - 초기 설정 (Absolute) 유지 */
+        /* 4. 통계 섹션 (막대 그래프 영역) - 927px 유지 */
         /* ------------------------------------------- */
         .stat-section {
             position: absolute;
-            top: 927px; /* 고객님 설정 값 유지 */
-            left: 75%; /* 고객님 설정 값 유지 */
+            top: 927px; /* ⭐ 요청에 따라 927px 유지 */
+            left: 50%; /* 가로 중앙으로 변경 */
             transform: translateX(-50%);
             width: 90%; 
             max-width: 337.5px; 
             padding-top: 50px; 
+            z-index: 5; /* 이미지 위에 잘 보이도록 추가 */
         }
         
         .stat-item {
@@ -80,7 +86,6 @@
             align-items: center;
         }
         
-        /* ⭐⭐ 항목별 간격 조정 CSS - 고객님 설정 값 유지 ⭐⭐ */
         /* 노랑 막대 아래 간격 (그룹 1) */
         .stat-item.item-1 { margin-bottom: 65px; } 
         /* 보라 막대 아래 간격 (그룹 2) */
@@ -89,7 +94,7 @@
         .stat-item.item-3 { margin-bottom: 65px; } 
         /* 초록 막대 아래 간격 (마지막 항목) */
         .stat-item.item-4 { margin-bottom: 0px; }
-        /* ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ */
+ 
         
         .bar-container {
             /* ⭐ 그래프 전체 길이 176px로 고정 */
@@ -139,10 +144,19 @@
         /* ------------------------------------------- */
         /* 5. 기타 요소 오버레이 */
         /* ------------------------------------------- */
-        .overlay-text-1 { position: absolute; top: 110px; left: 50%; transform: translateX(-50%); font-size: 24px; font-weight: 800; color: #161317; z-index: 5; }
+        .overlay-text-1 { 
+            position: absolute; 
+            top: 110px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            font-size: 24px; 
+            font-weight: 800; 
+            color: #161317; 
+            z-index: 5; 
+        }
         
         /* ------------------------------------------- */
-        /* 6. 하단 버튼 (Fixed Footer) */
+        /* 6. 하단 버튼 (Fixed Footer) - 유지 */
         /* ------------------------------------------- */
         .footer {
             width: 100%;
@@ -151,15 +165,14 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            /* ⭐ padding 제거 및 Flexbox 설정 */
             padding: 0; 
             background-color: #FFFFFF;
             box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
             z-index: 100;
-            display: flex; /* Flexbox 활성화 */
-            justify-content: center; /* 버튼을 중앙으로 정렬 */
+            display: flex; 
+            justify-content: center; 
             align-items: center;
-            height: 70px; /* 버튼 높이(56px)와 상하 여백을 고려하여 설정 */
+            height: 70px; 
         }
 
         /* ⭐ 두 버튼을 감싸는 컨테이너 */
@@ -167,41 +180,37 @@
             display: flex;
             gap: 7px; /* 버튼 사이 간격 */
             width: 100%;
-            max-width: 337.5px; /* 기존 컨테이너 너비 유지 */
-            justify-content: space-between; /* 두 버튼을 양쪽으로 벌립니다. */
+            max-width: 337.5px; 
+            justify-content: space-between; 
         }
 
         /* ⭐ 버튼 공통 스타일 (크기 및 모서리 반경 적용) */
         .action-button {
-            /* 요청하신 크기 적용 */
             width: 169px; 
             height: 56px; 
-            
             border: none;
-            /* 요청하신 모서리 반경 적용 */
             border-radius: 2px; 
-            
             font-size: 16px;
             font-weight: 800;
             cursor: pointer;
-            line-height: 56px; /* 높이에 맞춰 텍스트 중앙 정렬 */
+            line-height: 56px; 
             text-align: center;
             display: inline-block;
             text-decoration: none;
-            flex-shrink: 0; /* 크기 유지를 위해 축소 방지 */
+            flex-shrink: 0; 
         }
 
         /* 1. 다시 테스트 하기 버튼 스타일 (검은색 배경, 흰색 글자) */
         .test-again-button {
-            background-color: #161317; /* 검은색 배경 */
-            color: #FFFFFF; /* 흰색 글자 */
+            background-color: #161317; 
+            color: #FFFFFF; 
         }
 
         /* 2. 제품 구경하기 버튼 스타일 (검은색 배경, 흰색 글자) */
         .view-product-button {
-            background-color: #161317; /* 검은색 배경 */
-            color: #FFFFFF; /* 흰색 글자 */
-            border: 1px solid #161317; /* 검은색 테두리 */
+            background-color: #161317; 
+            color: #FFFFFF; 
+            border: 1px solid #161317; 
         }
     </style>
 </head>
@@ -241,7 +250,7 @@
 
     <div class="footer">
         <div class="button-group">
-            <a href="index.html" class="action-button test-again-button">다시 테스트 하기</a>
+            <a href="index.html" class="action-button test-again-button">테스트 다시 하기</a>
             <a href="result.html" class="action-button view-product-button">제품 구경하기</a>
         </div>
     </div>
@@ -251,13 +260,11 @@
         document.addEventListener('DOMContentLoaded', () => {
             
             // =========================================================================
-            // 1. 점수 계산 로직 (수정됨: sessionStorage에서 데이터 로드)
+            // 1. 점수 계산 로직 (유지)
             // =========================================================================
 
-            // test_page4.html에서 전달받은 최종 데이터를 sessionStorage에서 로드
             const quizAnswers = JSON.parse(sessionStorage.getItem('finalResultData') || '{}');
             
-            // 데이터를 성공적으로 불러왔다면, 임시 데이터 삭제(초기화)
             if (sessionStorage.getItem('finalResultData')) {
                 sessionStorage.removeItem('finalResultData');
             }
@@ -273,7 +280,6 @@
             
             let yellowScore = 0, purpleScore = 0, pinkScore = 0, greenScore = 0;
             
-            // 데이터가 로드되었을 경우에만 점수 계산을 수행합니다.
             if (Object.keys(quizAnswers).length > 0) {
                 for (const pageId in quizAnswers) {
                     const answers = quizAnswers[pageId];
@@ -305,7 +311,7 @@
 
 
             // =========================================================================
-            // 2. 결과 이미지 설정 함수 (15가지 경우의 수 매핑 로직 유지)
+            // 2. 결과 이미지 설정 함수 (유지)
             // =========================================================================
             function displayResultImage(percentages, maxScore) {
                 const resultImage = document.getElementById('result-main-image');
@@ -324,12 +330,10 @@
                 if (I === maxScoreValue) key += 'I'; 
                 if (G === maxScoreValue) key += 'G';
                 
-                // ⭐ 추가된 핵심 로직: 최종 결과 키를 session storage에 저장합니다. result.html에서 이 값을 사용합니다.
                 if (key) {
                     sessionStorage.setItem('finalResultKey', key); 
                     console.log("Final Result Key saved:", key);
                 }
-                // ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐
 
                 const imageMap = {
                     'Y': '결과1_디지털.svg', 'P': '결과2_수면.svg', 'I': '결과3_가성.svg', 'G': '결과4_알콜.svg', 
@@ -346,7 +350,6 @@
                     resultImage.src = `Image/${fileName}`;
                     resultImage.alt = `${key} 결과 이미지`; 
                 } else {
-                    // 데이터가 없는 경우, 기본값 또는 에러 페이지로 처리 가능
                     resultImage.src = `Image/${imageMap['Y']}`;
                     resultImage.alt = '기본 디지털 과부하 결과 이미지';
                 }
@@ -356,7 +359,7 @@
 
             
             // =========================================================================
-            // 3. UI 업데이트 함수 실행 (막대 그래프 색상 및 텍스트 색상 동적 변경)
+            // 3. UI 업데이트 함수 실행 (유지)
             // =========================================================================
 
             const categoryInfo = [
@@ -377,7 +380,6 @@
                 const textElement = document.querySelector(`.percentage-text.text-${index + 1}`);
 
                 if (barElement) {
-                    // 막대 색상 변경 (최고점만 원래 색상, 나머지는 회색)
                     barElement.classList.remove(...ALL_COLOR_CLASSES.split(' ')); 
 
                     if (isWinner) {
@@ -390,10 +392,8 @@
                 }
 
                 if (textElement) {
-                    // 텍스트 표시
                     textElement.textContent = `${percent}%`;
                     
-                    // 텍스트 색상 변경 (최고점만 기본 색상, 나머지는 연회색)
                     if (isWinner) {
                         textElement.classList.remove('gray-text'); 
                     } else {
