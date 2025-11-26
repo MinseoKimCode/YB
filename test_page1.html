@@ -41,7 +41,7 @@
 
         :root {
             --main-text-color: #161317;
-            --sub-text-color: #535353;
+            --sub-text-color: #585858;
             --line-color: #ced4da;
             --topbar-height-vw: 27.2vw; 
             --bottombar-height-vw: 21.33vw; 
@@ -103,7 +103,7 @@
         
         .survey-question { 
             font-family: var(--font-suit); 
-            font-size: 4vw; /* 15px */
+            font-size: 3.5vw; /* 15px */
             font-weight: 700; /* Bold */
             letter-spacing: -0.07vw; /* -0.3px */
             color: var(--main-text-color); 
@@ -113,7 +113,7 @@
         }
         
         /* .survey-question-block의 width: 100%는 .main-content의 5.2vw 패딩 덕분에 336px이 됨 */
-        .survey-question-block { width: 100%; margin-bottom: 5.33vw; padding: 5.33vw; border: 0.5px solid var(--line-color); border-radius: 2.13vw; background-color: #FFFFFF; box-sizing: border-box; box-shadow: 0 0.267vw 0.8vw rgba(0,0,0,0.05); }
+        .survey-question-block { width: 100%; margin-bottom: 5.33vw; padding: 5.33vw; border: 0.5px solid var(--line-color); border-radius: 2px; background-color: #FFFFFF; box-sizing: border-box; box-shadow: 0 0.267vw 0.8vw rgba(0,0,0,0.05); }
         .options-area-wrapper { position: relative; height: var(--circle-size); width: 100%; display: flex; justify-content: space-between; padding: 0; box-sizing: border-box; margin-bottom: 4vw; }
         
         .options-item { 
@@ -170,6 +170,7 @@
             color: #FFFFFF; 
             cursor: pointer; 
             text-align: center; 
+            border-radius: 2px;
         }
 
         .top-quiz-header {
@@ -201,6 +202,18 @@
             font-weight: 400;
             color: var(--main-text-color);
             line-height: 1;
+        }
+
+        .question-hint {
+            font-family: var(--font-suit); 
+            font-weight: 400; /* Regular */
+            font-size: 2.5vw; /* 10px */
+            letter-spacing: -0.003em; /* -0.3% */
+            color: var(--sub-text-color);
+            display: block; 
+            line-height: 1.4;
+            margin-top: -2vw;
+            margin-bottom: 2.67vw;
         }
     </style>
 </head>
@@ -322,8 +335,8 @@
 
                 <div class="survey-question-block" data-question-id="Q8">
                     <div class="question-number">Q8.</div>
-                    <div class="survey-question">지난 6개월 동안, 술을 마신 횟수는 얼마입니까?
-(0점: 월 1회 미만, 1점: 월 2~4회, 2점: 주 2~3회, 3점: 주 4회 이상)</div>
+                    <div class="survey-question">지난 6개월 동안, 술을 마신 횟수는 얼마입니까?</div>
+                    <div class="question-hint">(0점: 월 1회 미만, 1점: 월 2~4회, 2점: 주 2~3회, 3점: 주 4회 이상)</div>
                     <div class="options-area-wrapper">
                         <div class="options-item" data-value="0"><img src="Image/기본버튼0.svg" alt="옵션 0 버튼"></div>
                         <div class="options-item" data-value="1"><img src="Image/기본버튼1.svg" alt="옵션 1 버튼"></div>
