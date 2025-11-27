@@ -17,6 +17,7 @@
 
         /* ------------------------------------------- */
         /* 1. 기본 설정 및 뷰포트 고정 (세로 스크롤 허용) */
+        /* ⭐ 수정: body에 max-width와 중앙 정렬 적용 ⭐ */
         /* ------------------------------------------- */
         html, body {
             margin: 0;
@@ -24,30 +25,34 @@
             /* ⭐ 높이 제한 제거 */
             height: auto; 
             font-family: sans-serif;
-            display: flex;
-            /* 컨테이너 가로 중앙 정렬 */
-            justify-content: center; 
-            /* 컨테이너 세로 상단 정렬 (스크롤 시작점) */
+            /* display: flex; (제거) */
+            /* justify-content: center; (제거) */
             align-items: flex-start; 
             box-sizing: border-box;
             background-color: #ffffff; 
             /* ⭐ 가로 스크롤만 막고, 세로 스크롤은 body에서 자동 처리되도록 둡니다. */
             overflow-x: hidden; 
             overflow-y: auto; 
+            
+            /* ⭐ 핵심 수정: body에 최대 너비(375px)를 적용하고 중앙 정렬 */
+            width: 100%;
+            max-width: 375px; 
+            margin-left: auto;
+            margin-right: auto;
         }
 
         /* ------------------------------------------- */
         /* 2. 메인 컨테이너 (모바일 뷰포트 역할) (375px 고정 및 세로 스크롤) */
+        /* ⭐ 수정: width, max-width를 100%로 변경하여 body의 너비를 따름 ⭐ */
         /* ------------------------------------------- */
         #result-container {
-            /* ⭐ 375px로 고정 */
-            width: 375px; 
-            max-width: 375px; 
+            /* ⭐ 100%로 변경 (부모 body가 이미 375px로 제한됨) */
+            width: 100%; 
+            max-width: 100%; 
             /* ⭐ 내용 길이에 따라 높이 자동 설정 */
             height: auto; 
             position: relative; 
             background-color: #ffffff; 
-            /* ⭐ 컨테이너 내에서만 세로 스크롤 허용 (body에서 이미 처리하지만 명시적으로 유지) */
             overflow-y: auto; 
             -webkit-overflow-scrolling: touch;
             /* ⭐ 하단 버튼 높이만큼 padding-bottom 다시 추가 */
@@ -63,9 +68,7 @@
         /* ------------------------------------------- */
         .result-image {
             width: 100%;
-            /* ⭐ 높이 강제 조정 제거, 원본 비율 사용 */
             height: auto; 
-            /* ⭐ object-fit 제거 */
             object-fit: initial; 
             display: block;
             margin-top: 0; 
@@ -77,7 +80,7 @@
         .stat-section {
             position: absolute;
             top: 927px; /* 요청에 따라 927px 유지 */
-            left: 80%; 
+            left: 75%; /* left: 80% -> left: 50%로 변경 (중앙 정렬) */
             transform: translateX(-50%);
             width: 90%; 
             max-width: 337.5px; 
@@ -150,11 +153,12 @@
         
         /* ------------------------------------------- */
         /* 6. 하단 버튼 (Fixed Footer) - 유지 */
+        /* ⭐ 수정: max-width 제거하여 body의 너비(375px)를 따라가도록 함 ⭐ */
         /* ------------------------------------------- */
         .footer {
             width: 100%;
-            /* ⭐ 컨테이너 너비와 동일하게 고정 */
-            max-width: 375px; 
+            /* ⭐ 컨테이너 너비와 동일하게 고정 (body의 max-width를 따름) */
+            /* max-width: 375px; (제거) */ 
             position: fixed;
             bottom: 0;
             left: 50%;
